@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @author Gemini
- * @brief A complete LVGL menu application for Luckfox Pico.
+ * @brief A complete LVGL menu application for Luckfox Pico with fbterm console integration.
  *
  * Features:
  * - Dark theme with functional menu and dialogs.
@@ -9,10 +9,11 @@
  * - Navigable menu with WASD/Space key support.
  * - "About" screen with system information.
  * - "Reboot" confirmation dialog with proper focus trapping.
+ * - "Console" mode that hides UI, launches fbterm, and provides a clean exit.
  */
 
 #define _DEFAULT_SOURCE // For usleep declaration
-#include "lvgl/lvgl.h" // CRITICAL FIX: Changed .hh to .h
+#include "lvgl/lvgl.h"
 #include "lv_drivers/display/fbdev.h"
 #include "lv_drivers/indev/evdev.h"
 #include <unistd.h>
@@ -33,11 +34,15 @@
 lv_obj_t * time_label;
 lv_obj_t * menu_list;
 lv_obj_t * about_screen;
+lv_obj_t * console_screen; // Global handle for the console screen
 
 // --- Forward Declarations for UI Creation ---
 void create_main_menu(lv_obj_t * parent, lv_group_t * g);
 void create_about_screen(lv_obj_t * parent);
 void create_reboot_msgbox();
+void create_console_screen(lv_obj_t * parent);
+static void console_exit_event_handler(lv_event_t * e);
+
 
 // --- Helper function to read a file into a buffer ---
 static char* read_file_to_string(const char* filepath, char* buffer, size_t buffer_size) {
@@ -109,8 +114,43 @@ static void main_menu_event_handler(lv_event_t * e)
         else if (strcmp(text, "Reboot") == 0) {
             create_reboot_msgbox();
         }
+        else if (strcmp(text, "Console") == 0) {
+            create_console_screen(lv_scr_act());
+        }
     }
 }
+
+/**
+ * @brief Event handler for the 'Exit' button on the console screen.
+ */
+static void console_exit_event_handler(lv_event_t * e) {
+    LV_LOG_USER("Exiting console mode.");
+    // Kill the fbterm process
+    system("/etc/init.d/S99fbterm stop");
+
+    // Delete the black screen and its children (the button)
+    if(console_screen) {
+        lv_obj_del(console_screen);
+        console_screen = NULL;
+    }
+
+    // Restore the main UI elements
+    if(menu_list) {
+        lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+        // Find the "Console" button to focus it. It's the second child (index 1).
+        lv_obj_t* console_btn = lv_obj_get_child(menu_list, 1);
+        if(console_btn) {
+            lv_group_focus_obj(console_btn);
+        }
+    }
+    if(time_label) {
+        lv_obj_clear_flag(time_label, LV_OBJ_FLAG_HIDDEN);
+    }
+    
+    // Force a full redraw of the screen to remove any artifacts
+    lv_refr_now(lv_disp_get_default());
+}
+
 
 static void time_update_task(lv_timer_t * timer)
 {
@@ -124,10 +164,54 @@ static void time_update_task(lv_timer_t * timer)
 
 // --- UI Creation Functions ---
 
+/**
+ * @brief Creates the black screen for fbterm, with an exit button.
+ */
+void create_console_screen(lv_obj_t * parent) {
+    // Hide main menu and time label
+    lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
+    
+    // Create a black background object that covers the whole screen
+    console_screen = lv_obj_create(parent);
+    lv_obj_remove_style_all(console_screen); // Remove padding, borders, etc.
+    lv_obj_set_size(console_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_pos(console_screen, 0, 0);
+    lv_obj_set_style_bg_color(console_screen, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(console_screen, LV_OPA_COVER, 0);
+
+    // Create an exit button on the new screen
+    lv_obj_t * exit_btn = lv_btn_create(console_screen);
+    lv_obj_align(exit_btn, LV_ALIGN_BOTTOM_MID, 0, -20);
+    lv_obj_add_event_cb(exit_btn, console_exit_event_handler, LV_EVENT_CLICKED, NULL);
+    lv_obj_set_style_bg_color(exit_btn, lv_color_hex(0x404040), LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(exit_btn, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
+
+
+    lv_obj_t * exit_label = lv_label_create(exit_btn);
+    lv_label_set_text(exit_label, "Exit");
+    lv_obj_center(exit_label);
+    lv_obj_set_style_text_color(exit_label, lv_color_hex(0xffffff), 0);
+
+    // Add the button to the input group and focus it
+    lv_group_t * g = lv_group_get_default();
+    lv_group_add_obj(g, exit_btn);
+    lv_group_focus_obj(exit_btn);
+    
+    // This small delay helps ensure the UI draws the black screen
+    // before the system call potentially blocks or messes with the framebuffer.
+    lv_timer_handler();
+    usleep(16000); // ~1 frame
+
+    // Start fbterm in the background
+    LV_LOG_USER("Starting fbterm...");
+    system("/etc/init.d/S99fbterm start_with_input &");
+}
+
+
 void create_reboot_msgbox() {
     lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
 
-    // CRITICAL FIX: Simplified the buttons. The close 'X' button will act as Cancel.
     static const char * btns[] = {"Confirm", ""};
     
     lv_obj_t * mbox = lv_msgbox_create(lv_scr_act(), "Reboot", "Are you sure you want to reboot?", btns, true);
@@ -140,13 +224,11 @@ void create_reboot_msgbox() {
     lv_obj_set_style_text_color(lv_msgbox_get_title(mbox), lv_color_hex(0xe0e0e0), 0);
     lv_obj_set_style_text_color(lv_msgbox_get_text(mbox), lv_color_hex(0xc0c0c0), 0);
     
-    // Style the button matrix
     lv_obj_t * mbox_btns = lv_msgbox_get_btns(mbox);
     lv_obj_set_style_bg_color(mbox_btns, lv_color_hex(0x404040), LV_PART_ITEMS);
     lv_obj_set_style_bg_color(mbox_btns, lv_color_hex(0x5070a0), LV_PART_ITEMS | LV_STATE_FOCUSED);
     lv_obj_set_style_text_color(mbox_btns, lv_color_hex(0xffffff), LV_PART_ITEMS);
 
-    // Style the close button
     lv_obj_t * close_btn = lv_msgbox_get_close_btn(mbox);
     if (close_btn) {
         lv_obj_set_style_bg_color(close_btn, lv_color_hex(0x404040), LV_STATE_DEFAULT);
