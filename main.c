@@ -51,15 +51,17 @@ void create_console_screen(lv_obj_t * parent);
 void create_settings_screen(lv_obj_t * parent);
 void create_time_settings_screen();
 void create_time_setter_page();
-void create_timezone_page();
+// void create_timezone_page();
 void create_show_seconds_page();
 void create_hour_format_page();
-void create_generic_option_page(const char* title, const char** options, lv_event_cb_t event_cb, lv_obj_t** screen_handle, lv_event_cb_t close_cb);
+void create_generic_option_page(const char* title, const char** options, lv_event_cb_t event_cb, lv_obj_t* parent_to_hide, lv_event_cb_t close_cb);
 void load_preferences();
 void save_preferences();
 static void time_update_task(lv_timer_t * timer);
 static void generic_delete_obj_event_cb(lv_event_t * e);
 static lv_obj_t* create_styled_list_btn(lv_obj_t * parent, const char * text);
+static void sub_page_close_event_cb(lv_event_t * e);
+static void settings_menu_event_handler(lv_event_t * e);
 
 
 // --- Style for focused items in custom pages ---
@@ -94,12 +96,13 @@ static lv_obj_t* create_styled_list_btn(lv_obj_t * parent, const char * text) {
 /**
  * @brief Helper function to create a generic options page (e.g., On/Off selectors).
  */
-void create_generic_option_page(const char* title, const char** options, lv_event_cb_t event_cb, lv_obj_t** screen_handle, lv_event_cb_t close_cb) {
-    lv_obj_t * parent_screen = *screen_handle; // Get the parent screen
-    if(parent_screen) lv_obj_add_flag(parent_screen, LV_OBJ_FLAG_HIDDEN); // Hide it
+void create_generic_option_page(const char* title, const char** options, lv_event_cb_t event_cb, lv_obj_t* parent_to_hide, lv_event_cb_t close_cb) {
+    // Hide the parent screen that was passed in
+    if(parent_to_hide) lv_obj_add_flag(parent_to_hide, LV_OBJ_FLAG_HIDDEN);
 
+    // Create the new page locally
     lv_obj_t * page = lv_obj_create(lv_scr_act());
-    *screen_handle = page; // The new page is now the handle
+    // NOTE: We no longer modify the global screen handle here
     lv_obj_set_size(page, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(page, lv_color_hex(0x1e1e1e), 0);
     lv_obj_add_event_cb(page, close_cb, LV_EVENT_DELETE, NULL);
@@ -114,15 +117,15 @@ void create_generic_option_page(const char* title, const char** options, lv_even
     lv_group_t * g = lv_group_get_default();
     for (int i = 0; options[i] != NULL; i++) {
         lv_obj_t* btn = create_styled_list_btn(list, options[i]);
+        // Pass the new 'page' object to the click handler so it knows what to delete
         lv_obj_add_event_cb(btn, event_cb, LV_EVENT_CLICKED, page);
         lv_group_add_obj(g, btn);
     }
-    // Focus the first actual option button, skipping the title
+    
     if (lv_obj_get_child_cnt(list) > 1) {
         lv_group_focus_obj(lv_obj_get_child(list, 1));
     }
 }
-
 
 // --- Preference Management ---
 void save_preferences() {
@@ -167,6 +170,18 @@ static void generic_delete_obj_event_cb(lv_event_t * e) {
     lv_obj_t * obj_to_delete = lv_event_get_user_data(e);
     if(obj_to_delete) {
         lv_obj_del(obj_to_delete);
+    }
+}
+
+/**
+ * @brief Event handler for closing a sub-page of the time settings menu.
+ * This restores the main "Time Settings" screen.
+ */
+static void sub_page_close_event_cb(lv_event_t * e) {
+    if (lv_event_get_code(e) == LV_EVENT_DELETE && time_settings_screen) {
+        lv_obj_clear_flag(time_settings_screen, LV_OBJ_FLAG_HIDDEN);
+        // Focus the first option in the time settings list
+        lv_group_focus_obj(lv_obj_get_child(time_settings_screen, 0));
     }
 }
 
@@ -318,11 +333,17 @@ static void main_menu_event_handler(lv_event_t * e)
 
 static void settings_menu_event_handler(lv_event_t * e) {
     lv_obj_t * obj = lv_event_get_target(e);
+    // Since settings_screen is a list, we get the button text this way
     const char * text = lv_list_get_btn_text(settings_screen, obj);
+
     if (strcmp(text, "Time Settings") == 0) {
+        // Hide the current settings screen
         lv_obj_add_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
+        // Create the time settings sub-menu
         create_time_settings_screen();
     } else if (strcmp(text, "Back") == 0) {
+        // Delete the settings screen. Its LV_EVENT_DELETE callback will
+        // automatically un-hide the main menu.
         lv_obj_del(settings_screen);
     }
 }
@@ -332,8 +353,8 @@ static void time_settings_menu_event_handler(lv_event_t * e) {
     const char * text = lv_list_get_btn_text(time_settings_screen, obj);
 
     if (strcmp(text, "Set time") == 0) create_time_setter_page();
-    else if (strcmp(text, "Timezone") == 0) create_timezone_page();
-    else if (strcmp(text, "Display method") == 0) create_show_seconds_page();
+    // else if (strcmp(text, "Timezone") == 0) create_timezone_page(); // REMOVED
+    else if (strcmp(text, "Second display") == 0) create_show_seconds_page();
     else if (strcmp(text, "12/24 Hour format") == 0) create_hour_format_page();
     else if (strcmp(text, "Back") == 0) lv_obj_del(time_settings_screen);
 }
@@ -487,43 +508,14 @@ void create_main_menu(lv_obj_t * parent, lv_group_t * g) {
 // --- Time and Settings Screen Creation ---
 void create_show_seconds_page() {
     static const char* opts[] = {"On", "Off", NULL};
-    create_generic_option_page("Second Display", opts, show_seconds_event_cb, &time_settings_screen, time_settings_screen_close_cb);
+    // The call is now simpler: we pass time_settings_screen directly
+    create_generic_option_page("Second Display", opts, show_seconds_event_cb, time_settings_screen, sub_page_close_event_cb);
 }
 
 void create_hour_format_page() {
-    static const char* opts[] = {"24 Hour", "12 Hour", NULL};
-    create_generic_option_page("Time Format", opts, hour_format_event_cb, &time_settings_screen, time_settings_screen_close_cb);
-}
-
-void create_timezone_page() {
-    lv_obj_add_flag(time_settings_screen, LV_OBJ_FLAG_HIDDEN);
-
-    lv_obj_t * page = lv_obj_create(lv_scr_act());
-    lv_obj_set_size(page, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_style_bg_color(page, lv_color_hex(0x1e1e1e), 0);
-    lv_obj_add_event_cb(page, time_settings_screen_close_cb, LV_EVENT_DELETE, page);
-
-    lv_obj_t* list = lv_list_create(page);
-    lv_obj_center(list);
-    lv_obj_set_size(list, 300, 280);
-    lv_obj_set_style_bg_color(list, lv_color_hex(0x2d2d2d), 0);
-
-    const char * timezones[] = {"UTC", "Asia/Shanghai", "America/New_York", "Europe/London", NULL};
-    static const char * tz_paths[] = {"UTC", "Asia/Shanghai", "America/New_York", "Europe/London"};
-
-    lv_group_t * g = lv_group_get_default();
-    for(int i = 0; timezones[i] != NULL; i++) {
-        lv_obj_t* btn = create_styled_list_btn(list, timezones[i]);
-        lv_obj_add_event_cb(btn, timezone_select_event_handler, LV_EVENT_CLICKED, page);
-        lv_obj_set_user_data(btn, (void*)tz_paths[i]);
-        lv_group_add_obj(g, btn);
-    }
-
-    lv_obj_t* back_btn = create_styled_list_btn(list, "Back");
-    lv_obj_add_event_cb(back_btn, generic_delete_obj_event_cb, LV_EVENT_CLICKED, page);
-    lv_group_add_obj(g, back_btn);
-
-    lv_group_focus_obj(lv_obj_get_child(list, 0));
+    static const char* opts[] = {"24 Hour", "12 Hour", NULL}; // Corrected options
+    // The call is now simpler
+    create_generic_option_page("Time Format", opts, hour_format_event_cb, time_settings_screen, sub_page_close_event_cb);
 }
 
 void create_time_setter_page() {
@@ -532,7 +524,7 @@ void create_time_setter_page() {
     lv_obj_t * page = lv_obj_create(lv_scr_act());
     lv_obj_set_size(page, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(page, lv_color_hex(0x1e1e1e), 0);
-    lv_obj_add_event_cb(page, time_settings_screen_close_cb, LV_EVENT_DELETE, NULL);
+    lv_obj_add_event_cb(page, sub_page_close_event_cb, LV_EVENT_DELETE, NULL);
 
     time_t t = time(NULL);
     struct tm *tm_info = localtime(&t);
@@ -548,10 +540,13 @@ void create_time_setter_page() {
     lv_obj_set_flex_align(container, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_set_style_pad_column(container, 20, 0);
 
+    // --- 修改小时对象 ---
     lv_obj_t * hour_obj = lv_obj_create(container);
     lv_obj_set_size(hour_obj, 100, 80);
     lv_obj_set_style_bg_color(hour_obj, lv_color_hex(0x404040), 0);
-    lv_obj_add_style(hour_obj, &style_focused, LV_STATE_FOCUSED);
+    // 移除边框样式，改为和主菜单一样的背景色高亮
+    // lv_obj_add_style(hour_obj, &style_focused, LV_STATE_FOCUSED); // <-- 删除此行
+    lv_obj_set_style_bg_color(hour_obj, lv_color_hex(0x5070a0), LV_STATE_FOCUSED); // <-- 添加此行
     time_setter_hour_label = lv_label_create(hour_obj);
     lv_label_set_text_fmt(time_setter_hour_label, "%02d", edit_hour);
     lv_obj_set_style_text_font(time_setter_hour_label, &lv_font_montserrat_48, 0);
@@ -564,10 +559,13 @@ void create_time_setter_page() {
     lv_obj_set_style_text_font(sep_label, &lv_font_montserrat_48, 0);
     lv_obj_set_style_text_color(sep_label, lv_color_white(), 0);
 
+    // --- 修改分钟对象 ---
     lv_obj_t * minute_obj = lv_obj_create(container);
     lv_obj_set_size(minute_obj, 100, 80);
     lv_obj_set_style_bg_color(minute_obj, lv_color_hex(0x404040), 0);
-    lv_obj_add_style(minute_obj, &style_focused, LV_STATE_FOCUSED);
+    // 移除边框样式，改为和主菜单一样的背景色高亮
+    // lv_obj_add_style(minute_obj, &style_focused, LV_STATE_FOCUSED); // <-- 删除此行
+    lv_obj_set_style_bg_color(minute_obj, lv_color_hex(0x5070a0), LV_STATE_FOCUSED); // <-- 添加此行
     time_setter_minute_label = lv_label_create(minute_obj);
     lv_label_set_text_fmt(time_setter_minute_label, "%02d", edit_minute);
     lv_obj_set_style_text_font(time_setter_minute_label, &lv_font_montserrat_48, 0);
@@ -602,8 +600,9 @@ void create_time_settings_screen() {
     lv_obj_add_event_cb(time_settings_screen, time_settings_screen_close_cb, LV_EVENT_DELETE, NULL);
     lv_obj_set_style_bg_color(time_settings_screen, lv_color_hex(0x2d2d2d), 0);
 
-    const char * items[] = {"Set time", "Timezone", "Display method", "12/24 Hour format", "Back"};
-    for (int i = 0; i < 5; i++) {
+    // Removed "Timezone" from the list
+    const char * items[] = {"Set time", "Second display", "12/24 Hour format", "Back"};
+    for (int i = 0; i < 4; i++) { // Loop count is now 4
         lv_obj_t * btn = create_styled_list_btn(time_settings_screen, items[i]);
         lv_obj_add_event_cb(btn, time_settings_menu_event_handler, LV_EVENT_CLICKED, NULL);
         lv_group_add_obj(lv_group_get_default(), btn);
@@ -634,6 +633,15 @@ void create_settings_screen(lv_obj_t * parent) {
 int main(void)
 {
     lv_init();
+    
+    // --- 既然不再需要高亮边框，我们就可以删除这段代码了 ---
+    /*
+    lv_style_init(&style_focused);
+    lv_style_set_outline_color(&style_focused, lv_palette_main(LV_PALETTE_BLUE));
+    lv_style_set_outline_width(&style_focused, 2);
+    lv_style_set_outline_pad(&style_focused, 2);
+    */
+
     load_preferences(); // Load saved settings at startup
 
     fbdev_init();
