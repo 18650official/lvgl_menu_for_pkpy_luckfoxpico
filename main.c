@@ -62,27 +62,29 @@ static void modal_close_event_cb(lv_event_t * e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_DELETE) {
         LV_LOG_USER("Modal is closing, restoring main menu...");
-        lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
-        lv_group_focus_obj(lv_obj_get_child(menu_list, 0)); // Return focus to the menu
+        if(menu_list) {
+            lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+            lv_group_focus_obj(lv_obj_get_child(menu_list, 0)); // Return focus to the menu
+        }
     }
 }
 
 static void reboot_msgbox_event_handler(lv_event_t * e) {
+    lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * mbox = lv_event_get_current_target(e);
-    const char * btn_text = lv_msgbox_get_active_btn_text(mbox);
 
-    if (btn_text) {
-        if (strcmp(btn_text, "Confirm") == 0) {
+    if (code == LV_EVENT_VALUE_CHANGED) {
+        const char * btn_text = lv_msgbox_get_active_btn_text(mbox);
+        if (btn_text && strcmp(btn_text, "Confirm") == 0) {
             LV_LOG_USER("Reboot confirmed. Rebooting now...");
             system("reboot");
-            // If reboot command is sent, we don't need to close the msgbox manually
         } else {
-            // For "Cancel" or any other button, just close the msgbox.
-            // The modal_close_event_cb will handle the UI restoration.
+            // Any other button or action closes the box
             lv_msgbox_close(mbox);
         }
     }
 }
+
 
 static void about_screen_back_btn_event_handler(lv_event_t * e) {
     // We can use the generic close handler for the about screen as well
@@ -125,11 +127,11 @@ static void time_update_task(lv_timer_t * timer)
 void create_reboot_msgbox() {
     lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
 
-    static const char * btns[] = {"Confirm", "Cancel", ""};
+    // CRITICAL FIX: Simplified the buttons. The close 'X' button will act as Cancel.
+    static const char * btns[] = {"Confirm", ""};
     
     lv_obj_t * mbox = lv_msgbox_create(lv_scr_act(), "Reboot", "Are you sure you want to reboot?", btns, true);
     lv_obj_add_event_cb(mbox, reboot_msgbox_event_handler, LV_EVENT_VALUE_CHANGED, NULL);
-    // CRITICAL FIX: Add a separate handler for the DELETE event.
     lv_obj_add_event_cb(mbox, modal_close_event_cb, LV_EVENT_DELETE, NULL);
     lv_obj_center(mbox);
 
@@ -138,23 +140,29 @@ void create_reboot_msgbox() {
     lv_obj_set_style_text_color(lv_msgbox_get_title(mbox), lv_color_hex(0xe0e0e0), 0);
     lv_obj_set_style_text_color(lv_msgbox_get_text(mbox), lv_color_hex(0xc0c0c0), 0);
     
+    // Style the button matrix
     lv_obj_t * mbox_btns = lv_msgbox_get_btns(mbox);
     lv_obj_set_style_bg_color(mbox_btns, lv_color_hex(0x404040), LV_PART_ITEMS);
     lv_obj_set_style_bg_color(mbox_btns, lv_color_hex(0x5070a0), LV_PART_ITEMS | LV_STATE_FOCUSED);
     lv_obj_set_style_text_color(mbox_btns, lv_color_hex(0xffffff), LV_PART_ITEMS);
 
+    // Style the close button
+    lv_obj_t * close_btn = lv_msgbox_get_close_btn(mbox);
+    if (close_btn) {
+        lv_obj_set_style_bg_color(close_btn, lv_color_hex(0x404040), LV_STATE_DEFAULT);
+        lv_obj_set_style_bg_color(close_btn, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
+    }
+    
     lv_group_add_obj(lv_group_get_default(), mbox);
     lv_group_focus_obj(mbox);
 }
 
 void create_about_screen(lv_obj_t * parent) {
     about_screen = lv_obj_create(parent);
-    // CRITICAL FIX: Add the generic close handler to this modal too.
     lv_obj_add_event_cb(about_screen, modal_close_event_cb, LV_EVENT_DELETE, NULL);
     lv_obj_set_size(about_screen, lv_obj_get_width(parent), lv_obj_get_height(parent));
     lv_obj_set_style_bg_color(about_screen, lv_color_hex(0x1e1e1e), 0);
     lv_obj_set_style_border_width(about_screen, 0, 0);
-    // lv_obj_add_flag(about_screen, LV_OBJ_FLAG_HIDDEN); // No longer needed, created on demand
 
     char buffer[512];
     
@@ -283,4 +291,3 @@ uint32_t custom_tick_get(void)
     uint32_t time_ms = now_ms - start_ms;
     return time_ms;
 }
-
