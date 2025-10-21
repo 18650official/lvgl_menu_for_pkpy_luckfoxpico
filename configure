@@ -75,3 +75,4 @@ echo "Compiler (CC):      $CC"
 echo "Install Prefix:     $PREFIX"
 echo ""
 echo "You can now run 'make' to build the project."
+

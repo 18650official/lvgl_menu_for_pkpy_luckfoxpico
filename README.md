@@ -28,7 +28,7 @@ This project uses a standard `configure` script to generate a Makefile, making i
 ```sh
 git clone <your-repository-url>
 cd <repository-name>
-````
+```
 
 **2. Configure the build:**
 Run the `configure` script and point it to your cross-compiler toolchain. The `--cross-compile` flag should be the prefix of your toolchain binaries (e.g., `gcc`, `ld`).
@@ -38,7 +38,9 @@ Run the `configure` script and point it to your cross-compiler toolchain. The `-
 chmod +x ./configure
 
 # Example configuration
-./configure --cross-compile=~/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-
+
+./configure --cross-compile=/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-
+
 ```
 
 *Tip: If your toolchain's `bin` directory is in your system's `PATH`, you can often omit the full path.*

@@ -4,8 +4,8 @@
 #
 
 # --- Variables will be replaced by ./configure ---
-CC = /home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc
-prefix = ./build
+CC = @CC@
+prefix = @prefix@
 # ------------------------------------------------
 
 LVGL_DIR_NAME 	?= lvgl
