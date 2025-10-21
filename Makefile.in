@@ -14,6 +14,7 @@ LVGL_DIR 		?= .
 # A more manageable set of warnings
 WARNINGS := -Wall -Wextra -Wno-unused-parameter -Wmissing-prototypes
 
+# Add src/ to the include path for files that use #include "lv_conf.h"
 CFLAGS 			?= -O3 -g0 -I$(LVGL_DIR)/ -I$(LVGL_DIR)/src $(WARNINGS) -std=c99
 LDFLAGS 		?= -lm -lpthread
 BIN 			= pico-menu
@@ -25,6 +26,10 @@ bindir 			?= $(prefix)/bin
 
 # Collect the files to compile
 MAINSRC = src/main.c
+
+# --- NEW: List of config files in src/ that need to be symlinked to the root ---
+# This is required for libraries that use hardcoded relative paths like ../lv_drv_conf.h
+CONF_FILES_TO_LINK := lv_conf.h lv_drv_conf.h lv_demo_conf.h
 
 include $(LVGL_DIR)/lvgl/lvgl.mk
 include $(LVGL_DIR)/lv_drivers/lv_drivers.mk
@@ -54,15 +59,24 @@ $(BUILD_OBJ_DIR)/%.o: %.S
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "  AS      $<"
 
-default: $(OBJS_IN_BUILD_DIR)
+# The default build target now depends on the symlinks being created first
+default: $(CONF_FILES_TO_LINK) $(OBJS_IN_BUILD_DIR)
 	@echo "  LD      $(BUILD_BIN_DIR)/$(BIN)"
 	@mkdir -p $(BUILD_BIN_DIR)
 	@$(CC) -o $(BUILD_BIN_DIR)/$(BIN) $(OBJS_IN_BUILD_DIR) $(LDFLAGS)
 	@echo "Build finished: $(BUILD_BIN_DIR)/$(BIN)"
 
+# --- NEW: A rule to create all required symlinks ---
+# This rule runs once for each file in CONF_FILES_TO_LINK if the link doesn't exist
+$(CONF_FILES_TO_LINK):
+	@echo "  SYMLINK $@"
+	@ln -sf "src/$@" "$@"
+
 clean:
 	@echo "Cleaning build directory..."
 	@rm -rf $(BUILD_DIR)
+	@echo "Cleaning config symlinks..."
+	@rm -f $(CONF_FILES_TO_LINK)
 	@echo "Clean complete."
 
 install: all
