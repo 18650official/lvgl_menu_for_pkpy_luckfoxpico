@@ -65,6 +65,8 @@ default: $(CONF_FILES_TO_LINK) $(OBJS_IN_BUILD_DIR)
 	@mkdir -p $(BUILD_BIN_DIR)
 	@$(CC) -o $(BUILD_BIN_DIR)/$(BIN) $(OBJS_IN_BUILD_DIR) $(LDFLAGS)
 	@echo "Build finished: $(BUILD_BIN_DIR)/$(BIN)"
+	@echo "Cleaning up temporary symlinks..."
+	@rm -f $(CONF_FILES_TO_LINK)
 
 # --- NEW: A rule to create all required symlinks ---
 # This rule runs once for each file in CONF_FILES_TO_LINK if the link doesn't exist
