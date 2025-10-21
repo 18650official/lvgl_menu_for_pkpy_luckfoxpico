@@ -28,7 +28,7 @@
 #define DISP_BUF_SIZE (480 * 10)
 
 // --- Configuration ---
-#define EVDEV_PATH "/dev/input/event1"
+#define EVDEV_PATH "/dev/input/event0"
 #define PREFS_FILE "/etc/menu_prefs.conf"
 
 // --- Global UI Objects ---
@@ -48,6 +48,7 @@ void create_main_menu(lv_obj_t * parent, lv_group_t * g);
 void create_about_screen(lv_obj_t * parent);
 void create_reboot_msgbox();
 void create_console_screen(lv_obj_t * parent);
+void create_game_screen(lv_obj_t * parent); 
 void create_settings_screen(lv_obj_t * parent);
 void create_time_settings_screen();
 void create_time_setter_page();
@@ -328,6 +329,9 @@ static void main_menu_event_handler(lv_event_t * e)
             lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
             create_settings_screen(lv_scr_act());
         }
+        if (strcmp(text, "Start Game") == 0) {
+            create_game_screen(lv_scr_act());
+        }
     }
 }
 
@@ -416,10 +420,35 @@ void create_console_screen(lv_obj_t * parent) {
     system("/etc/init.d/S99fbterm start_with_input &");
 }
 
+// Creation functions
+void create_game_screen(lv_obj_t * parent) {
+    // 1. 隐藏主菜单和时间标签
+    lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
+    
+    // 2. 创建一个覆盖全屏的黑色背景，作为过渡界面
+    console_screen = lv_obj_create(parent);
+    lv_obj_remove_style_all(console_screen);
+    lv_obj_set_size(console_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_pos(console_screen, 0, 0);
+    lv_obj_set_style_bg_color(console_screen, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(console_screen, LV_OPA_COVER, 0);
+
+    // 3. 强制 LVGL 立即绘制黑色屏幕，确保视觉上平滑过渡
+    lv_timer_handler();
+    usleep(16000); // 等待一帧的时间
+
+    // 4. 在后台执行游戏启动脚本
+    LV_LOG_USER("Handing control to game script...");
+    
+    // Execute kill and launch game shell
+    system("/root/term_start_all.sh < /dev/null &");
+}
+
 void create_reboot_msgbox() {
     lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
 
-    static const char * btns[] = {"Confirm", "Cancel", ""};
+    static const char * btns[] = {"Confirm", ""};
     
     lv_obj_t * mbox = lv_msgbox_create(lv_scr_act(), "Reboot", "Are you sure you want to reboot?", btns, true);
     lv_obj_add_event_cb(mbox, reboot_msgbox_event_handler, LV_EVENT_VALUE_CHANGED, NULL);

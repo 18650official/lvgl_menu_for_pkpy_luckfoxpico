@@ -1,0 +1,11 @@
+build/
+*.o
+*.d
+Makefile
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+*.suo
+*.user

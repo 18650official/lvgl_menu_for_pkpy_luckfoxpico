@@ -1,0 +1,77 @@
+#!/bin/sh
+
+# ==============================================================================
+# Configure Script for LVGL Pico Menu
+#
+# This script generates a Makefile from Makefile.in, allowing for easy
+# configuration of the toolchain and installation paths.
+# ==============================================================================
+
+# --- Default Values ---
+PREFIX="/usr/local"
+CROSS_COMPILE=""
+
+# --- Help Message ---
+print_help() {
+    echo "Usage: ./configure [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  --prefix=PATH         Set the installation prefix (default: /usr/local)"
+    echo "  --cross-compile=PREFIX  Set the cross-compiler toolchain prefix"
+    echo "                        (e.g., arm-rockchip830-linux-uclibcgnueabihf-)"
+    echo "  --help                Display this help message"
+    echo ""
+    echo "Example:"
+    echo "  ./configure --cross-compile=~/toolchain/bin/arm-linux-"
+}
+
+# --- Argument Parsing ---
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --prefix=*)
+            PREFIX=$(echo "$1" | sed 's/--prefix=//')
+            shift
+            ;;
+        --cross-compile=*)
+            CROSS_COMPILE=$(echo "$1" | sed 's/--cross-compile=//')
+            shift
+            ;;
+        --help)
+            print_help
+            exit 0
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
+# --- Determine Compiler ---
+CC="${CROSS_COMPILE}gcc"
+
+# --- Check if Compiler Exists ---
+echo "Checking for compiler: $CC..."
+if ! command -v "$CC" >/dev/null 2>&1; then
+    echo "Error: Compiler '$CC' not found in your PATH."
+    echo "Please ensure your toolchain's bin directory is in your PATH,"
+    echo "or provide the full prefix using --cross-compile."
+    exit 1
+fi
+echo "Compiler found."
+
+# --- File Generation ---
+echo "Generating Makefile from Makefile.in..."
+# Use sed to replace placeholders in the template
+sed -e "s|@CC@|$CC|g" \
+    -e "s|@prefix@|$PREFIX|g" \
+    Makefile.in > Makefile
+
+echo ""
+echo "Configuration complete!"
+echo "-----------------------"
+echo "Compiler (CC):      $CC"
+echo "Install Prefix:     $PREFIX"
+echo ""
+echo "You can now run 'make' to build the project."
