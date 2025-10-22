@@ -38,6 +38,7 @@ lv_obj_t * about_screen;
 lv_obj_t * console_screen; // Global handle for the console screen
 lv_obj_t * settings_screen;
 lv_obj_t * time_settings_screen;
+lv_obj_t * ota_update_screen;
 
 // --- Global Preferences ---
 bool show_seconds = true;
@@ -63,7 +64,10 @@ static void generic_delete_obj_event_cb(lv_event_t * e);
 static lv_obj_t* create_styled_list_btn(lv_obj_t * parent, const char * text);
 static void sub_page_close_event_cb(lv_event_t * e);
 static void settings_menu_event_handler(lv_event_t * e);
-
+// OTA func
+void create_ota_update_screen();
+static void ota_screen_back_btn_event_handler(lv_event_t * e);
+static void ota_screen_close_event_cb(lv_event_t * e);
 
 // --- Style for focused items in custom pages ---
 static lv_style_t style_focused;
@@ -345,7 +349,12 @@ static void settings_menu_event_handler(lv_event_t * e) {
         lv_obj_add_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
         // Create the time settings sub-menu
         create_time_settings_screen();
-    } else if (strcmp(text, "Back") == 0) {
+    } 
+    else if (strcmp(text, "OTA Update") == 0) {
+        lv_obj_add_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
+        create_ota_update_screen();
+    }
+    else if (strcmp(text, "Back") == 0) {
         // Delete the settings screen. Its LV_EVENT_DELETE callback will
         // automatically un-hide the main menu.
         lv_obj_del(settings_screen);
@@ -639,6 +648,82 @@ void create_time_settings_screen() {
     lv_group_focus_obj(lv_obj_get_child(time_settings_screen, 0));
 }
 
+/**
+ * @brief OTA 屏幕的删除事件回调。
+ * 这是停止 httpd 服务和恢复设置菜单的最佳位置。
+ */
+static void ota_screen_close_event_cb(lv_event_t * e) {
+    if (lv_event_get_code(e) == LV_EVENT_DELETE) {
+        LV_LOG_USER("Closing OTA screen, stopping httpd...");
+        system("toggle_httpd.sh stop &"); // 在后台停止服务
+
+        // 恢复设置屏幕
+        if (settings_screen) {
+            lv_obj_clear_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
+            // 重新聚焦到 "OTA Update" 按钮 (索引 1)
+            lv_group_focus_obj(lv_obj_get_child(settings_screen, 1)); 
+        }
+    }
+}
+
+/**
+ * @brief OTA 屏幕上的 "Back" 按钮的点击事件处理。
+ * 它只负责删除 OTA 屏幕。
+ */
+static void ota_screen_back_btn_event_handler(lv_event_t * e) {
+    if (ota_update_screen) {
+        lv_obj_del(ota_update_screen);
+        ota_update_screen = NULL;
+    }
+}
+
+/**
+ * @brief 创建 OTA 更新界面。
+ */
+void create_ota_update_screen() {
+    LV_LOG_USER("Starting httpd for OTA update...");
+    system("toggle_httpd.sh restart &"); // 在后台启动服务
+
+    // 1. 创建全屏页面 (时钟会保留，因为它在 lv_scr_act() 上)
+    ota_update_screen = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(ota_update_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_pos(ota_update_screen, 0, 0);
+    lv_obj_set_style_bg_color(ota_update_screen, lv_color_hex(0x1e1e1e), 0);
+    lv_obj_set_style_border_width(ota_update_screen, 0, 0);
+    // 添加删除事件回调，用于清理
+    lv_obj_add_event_cb(ota_update_screen, ota_screen_close_event_cb, LV_EVENT_DELETE, NULL);
+
+    // 2. 创建指导语标签
+    lv_obj_t * label = lv_label_create(ota_update_screen);
+    const char * instructions = 
+        "Connect to your computer.\n\n"
+        "Open a web browser and go to:\n"
+        "http://172.32.0.92\n\n"
+        "Upload the update package.";
+    
+    lv_label_set_text(label, instructions);
+    lv_obj_set_style_text_color(label, lv_color_hex(0xe0e0e0), 0);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_16, 0);
+    lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
+    lv_label_set_long_mode(label, LV_LABEL_LONG_WRAP); // 允许换行
+    lv_obj_set_width(label, 400); // 设置宽度以触发展开
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, -20); // 放在中间偏上的位置
+
+    // 3. 创建 "Back" 按钮
+    lv_obj_t * back_btn = lv_btn_create(ota_update_screen);
+    lv_obj_align(back_btn, LV_ALIGN_BOTTOM_MID, 0, -20);
+    lv_obj_add_event_cb(back_btn, ota_screen_back_btn_event_handler, LV_EVENT_CLICKED, NULL);
+
+    lv_obj_t * back_label = lv_label_create(back_btn);
+    lv_label_set_text(back_label, "Back");
+    lv_obj_center(back_label);
+
+    // 4. 将 "Back" 按钮添加到输入组
+    lv_group_t * g = lv_group_get_default();
+    lv_group_add_obj(g, back_btn);
+    lv_group_focus_obj(back_btn);
+}
+
 void create_settings_screen(lv_obj_t * parent) {
     settings_screen = lv_list_create(parent);
     lv_obj_set_size(settings_screen, 300, 240);
@@ -647,7 +732,9 @@ void create_settings_screen(lv_obj_t * parent) {
     lv_obj_set_style_bg_color(settings_screen, lv_color_hex(0x2d2d2d), 0);
 
     create_styled_list_btn(settings_screen, "Time Settings");
+    create_styled_list_btn(settings_screen, "OTA Update");
     create_styled_list_btn(settings_screen, "Back");
+
 
     lv_group_t * g = lv_group_get_default();
     for (uint32_t i = 0; i < lv_obj_get_child_cnt(settings_screen); i++) {
