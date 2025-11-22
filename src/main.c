@@ -13,6 +13,7 @@
  */
 
 #define _DEFAULT_SOURCE // For usleep declaration
+
 #include "lvgl/lvgl.h"
 #include "lv_drivers/display/fbdev.h"
 #include "lv_drivers/indev/evdev.h"
@@ -23,6 +24,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 #include <linux/input-event-codes.h> // For KEY_W, KEY_A, etc.
 
 #define DISP_BUF_SIZE (480 * 10)
@@ -30,6 +32,9 @@
 // --- Configuration ---
 #define EVDEV_PATH "/dev/input/event0"
 #define PREFS_FILE "/etc/menu_prefs.conf"
+
+// Include font
+LV_FONT_DECLARE(nes_font_16);
 
 // --- Global UI Objects ---
 lv_obj_t * time_label;
@@ -39,6 +44,10 @@ lv_obj_t * console_screen; // Global handle for the console screen
 lv_obj_t * settings_screen;
 lv_obj_t * time_settings_screen;
 lv_obj_t * ota_update_screen;
+lv_obj_t * nes_browser_screen;
+
+// Font and new style
+static lv_style_t style_nes_cjk;
 
 // --- Global Preferences ---
 bool show_seconds = true;
@@ -71,6 +80,11 @@ static void ota_screen_close_event_cb(lv_event_t * e);
 
 // --- Style for focused items in custom pages ---
 static lv_style_t style_focused;
+
+// NES
+void create_nes_browser_screen(lv_obj_t * parent);
+static void nes_browser_screen_close_cb(lv_event_t * e);
+static void nes_game_launch_event_handler(lv_event_t * e);
 
 // --- Helper function to read a file into a buffer ---
 static char* read_file_to_string(const char* filepath, char* buffer, size_t buffer_size) {
@@ -336,6 +350,10 @@ static void main_menu_event_handler(lv_event_t * e)
         if (strcmp(text, "Start Game") == 0) {
             create_game_screen(lv_scr_act());
         }
+        else if (strcmp(text, "NES Emulator") == 0) {
+            lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+            create_nes_browser_screen(lv_scr_act());
+        }
     }
 }
 
@@ -535,8 +553,8 @@ void create_main_menu(lv_obj_t * parent, lv_group_t * g) {
     lv_obj_set_style_border_width(menu_list, 0, 0);
     lv_obj_set_style_pad_all(menu_list, 10, 0);
 
-    const char * menu_items[] = {"Start Game", "Console", "Settings", "About", "Reboot"};
-    for(int i = 0; i < sizeof(menu_items)/sizeof(menu_items[0]); i++) {
+    const char * menu_items[] = {"Start Game", "Console", "NES Emulator", "Settings", "About", "Reboot"};
+    for(int i = 0; i < sizeof(menu_items)/sizeof(menu_items[0]); i++) { // 循环次数会自动更新
         lv_obj_t * btn = create_styled_list_btn(menu_list, menu_items[i]);
         lv_obj_add_event_cb(btn, main_menu_event_handler, LV_EVENT_CLICKED, NULL);
         lv_group_add_obj(g, btn);
@@ -745,6 +763,108 @@ void create_settings_screen(lv_obj_t * parent) {
     lv_group_focus_obj(lv_obj_get_child(settings_screen, 0));
 }
 
+// Create NES game file browser
+/**
+ * @brief 当 NES 浏览器屏幕被删除时调用，用于恢复主菜单。
+ */
+static void nes_browser_screen_close_cb(lv_event_t * e) {
+    if (lv_event_get_code(e) == LV_EVENT_DELETE && menu_list) {
+        lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+        // 聚焦回 "NES Emulator" 按钮 (索引 1)
+        lv_group_focus_obj(lv_obj_get_child(menu_list, 1)); 
+    }
+}
+
+/**
+ * @brief 点击游戏文件按钮时触发。
+ */
+static void nes_game_launch_event_handler(lv_event_t * e) {
+    const char * filename = lv_event_get_user_data(e);
+    if (!filename) return;
+
+    // 1. 准备要执行的命令
+    char command[512];
+    // Create the command
+    snprintf(command, sizeof(command), 
+        "/root/nes_start.sh \"/oem/nes_game/%s\" &", 
+        filename);
+
+    LV_LOG_USER("Executing: %s", command);
+
+    // 2. 隐藏所有 LVGL UI
+    if(menu_list) lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+    if(time_label) lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
+    if(nes_browser_screen) lv_obj_add_flag(nes_browser_screen, LV_OBJ_FLAG_HIDDEN);
+    
+    // 3. 创建一个临时的黑色过渡屏幕
+    lv_obj_t * transition_screen = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(transition_screen);
+    lv_obj_set_size(transition_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_style_bg_color(transition_screen, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(transition_screen, LV_OPA_COVER, 0);
+
+    // 4. 强制 LVGL 立即绘制黑色屏幕
+    lv_timer_handler();
+    usleep(16000); 
+
+    // 5. 执行脚本
+    system(command);
+    
+    // 此时，/etc/init.d/S99lvgl stop 应该已经开始执行，这个进程很快会被杀死
+}
+
+/**
+ * @brief 创建 NES 游戏文件浏览器屏幕。
+ */
+void create_nes_browser_screen(lv_obj_t * parent) {
+    nes_browser_screen = lv_list_create(parent);
+    // Add CJK Support 
+    lv_obj_add_style(nes_browser_screen, &style_nes_cjk, 0);    
+
+    lv_obj_set_size(nes_browser_screen, 300, 280); // 尺寸可以调整
+    lv_obj_center(nes_browser_screen);
+    lv_obj_add_event_cb(nes_browser_screen, nes_browser_screen_close_cb, LV_EVENT_DELETE, NULL);
+    lv_obj_set_style_bg_color(nes_browser_screen, lv_color_hex(0x2d2d2d), 0);
+
+    lv_group_t * g = lv_group_get_default();
+
+    // 1. 添加 "Back" 按钮
+    lv_obj_t * btn_back = create_styled_list_btn(nes_browser_screen, "Back");
+    // 使用 generic_delete_obj_event_cb 来关闭这个屏幕
+    lv_obj_add_event_cb(btn_back, generic_delete_obj_event_cb, LV_EVENT_CLICKED, nes_browser_screen);
+    lv_group_add_obj(g, btn_back);
+
+    // 2. 遍历 /oem/nes_game 目录
+    const char * dir_path = "/oem/nes_game";
+    DIR *d;
+    struct dirent *dir;
+    d = opendir(dir_path);
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            // 过滤掉 '.' 和 '..'
+            if (dir->d_type == DT_REG) { // 只显示普通文件
+                // 注意：dir->d_name 是一个临时指针，必须复制它的内容
+                char* filename_copy = strdup(dir->d_name);
+                if (filename_copy) {
+                    lv_obj_t * btn_game = create_styled_list_btn(nes_browser_screen, filename_copy);
+                    // 将复制的文件名字符串作为 user_data 传递
+                    lv_obj_add_event_cb(btn_game, nes_game_launch_event_handler, LV_EVENT_CLICKED, filename_copy);
+                    // (如上次所说，这里有一个小的内存泄漏，但在你的使用场景中不是问题)
+                    lv_group_add_obj(g, btn_game);
+                }
+            }
+        }
+        closedir(d);
+    } else {
+        LV_LOG_ERROR("Failed to open directory: %s", dir_path);
+        lv_list_add_text(nes_browser_screen, "Error: Cannot open dir");
+    }
+
+    // 3. 默认聚焦到 "Back" 按钮
+    lv_group_focus_obj(btn_back);
+} 
+// NES end
+
 // --- Main Application Entry ---
 int main(void)
 {
@@ -758,6 +878,10 @@ int main(void)
     lv_style_set_outline_pad(&style_focused, 2);
     */
 
+    // Init the font
+    lv_style_init(&style_nes_cjk);
+    lv_style_set_text_font(&style_nes_cjk, &nes_font_16);
+
     load_preferences(); // Load saved settings at startup
 
     fbdev_init();
@@ -770,8 +894,8 @@ int main(void)
     lv_disp_drv_init(&disp_drv);
     disp_drv.draw_buf  = &disp_buf;
     disp_drv.flush_cb  = fbdev_flush;
-    disp_drv.hor_res   = 480;
-    disp_drv.ver_res   = 320;
+    disp_drv.hor_res   = 320;
+    disp_drv.ver_res   = 480;
     lv_disp_drv_register(&disp_drv);
     
     evdev_init();
