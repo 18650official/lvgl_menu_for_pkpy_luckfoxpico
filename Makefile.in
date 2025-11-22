@@ -1,4 +1,4 @@
-#
+\#
 # Makefile Template (Makefile.in)
 # This file is used by the 'configure' script to generate the final Makefile.
 #
@@ -24,8 +24,11 @@ BUILD_BIN_DIR 	= $(BUILD_DIR)/bin
 
 bindir 			?= $(prefix)/bin
 
-# Collect the files to compile
-MAINSRC = src/main.c
+# ------------------------------------------------------------------
+# [FIXED] Collect the files to compile
+# Added nes_font_16.c so the linker can find the font array.
+# ------------------------------------------------------------------
+MAINSRC = src/main.c src/nes_font_16.c
 
 # --- NEW: List of config files in src/ that need to be symlinked to the root ---
 # This is required for libraries that use hardcoded relative paths like ../lv_drv_conf.h
@@ -51,17 +54,17 @@ all: default
 $(BUILD_OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "  CC      $<"
+	@echo "  CC      $<"
 
 # Rule for building assembly files if any
 $(BUILD_OBJ_DIR)/%.o: %.S
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "  AS      $<"
+	@echo "  AS      $<"
 
 # The default build target now depends on the symlinks being created first
 default: $(CONF_FILES_TO_LINK) $(OBJS_IN_BUILD_DIR)
-	@echo "  LD      $(BUILD_BIN_DIR)/$(BIN)"
+	@echo "  LD      $(BUILD_BIN_DIR)/$(BIN)"
 	@mkdir -p $(BUILD_BIN_DIR)
 	@$(CC) -o $(BUILD_BIN_DIR)/$(BIN) $(OBJS_IN_BUILD_DIR) $(LDFLAGS)
 	@echo "Build finished: $(BUILD_BIN_DIR)/$(BIN)"
@@ -71,7 +74,7 @@ default: $(CONF_FILES_TO_LINK) $(OBJS_IN_BUILD_DIR)
 # --- NEW: A rule to create all required symlinks ---
 # This rule runs once for each file in CONF_FILES_TO_LINK if the link doesn't exist
 $(CONF_FILES_TO_LINK):
-	@echo "  SYMLINK $@"
+	@echo "  SYMLINK $@"
 	@ln -sf "src/$@" "$@"
 
 clean:
@@ -91,4 +94,3 @@ uninstall:
 	@$(RM) $(DESTDIR)$(bindir)/$(BIN)
 
 .PHONY: all default clean install uninstall
-
