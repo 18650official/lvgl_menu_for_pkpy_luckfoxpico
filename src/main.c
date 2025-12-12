@@ -1,15 +1,7 @@
 /**
  * @file main.c
- * @author Gemini
- * @brief A complete LVGL menu application for Luckfox Pico with fbterm console integration.
- *
- * Features:
- * - Dark theme with functional menu and dialogs.
- * - Real-time clock with persistence.
- * - Navigable menu with WASD/Space key support.
- * - "About" screen with system information.
- * - "Reboot" confirmation dialog with proper focus trapping.
- * - "Console" mode that hides UI, launches fbterm, and provides a clean exit.
+ * @author Gemini & User
+ * @brief Optimized LVGL menu for 320x240 resolution on Luckfox Pico.
  */
 
 #define _DEFAULT_SOURCE // For usleep declaration
@@ -25,35 +17,40 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
-#include <linux/input-event-codes.h> // For KEY_W, KEY_A, etc.
+#include <linux/input-event-codes.h> 
 
-#define DISP_BUF_SIZE (480 * 10)
+#define DISP_BUF_SIZE (320 * 20) // Slightly increased buffer for better performance
 
 // --- Configuration ---
 #define EVDEV_PATH "/dev/input/event0"
 #define PREFS_FILE "/etc/menu_prefs.conf"
 
-// Include font
+// Include font (Assuming these are enabled in lv_conf.h)
 LV_FONT_DECLARE(nes_font_16);
+LV_FONT_DECLARE(lv_font_montserrat_12);
+LV_FONT_DECLARE(lv_font_montserrat_14);
+LV_FONT_DECLARE(lv_font_montserrat_36); // Replaces 48
 
 // --- Global UI Objects ---
 lv_obj_t * time_label;
 lv_obj_t * menu_list;
 lv_obj_t * about_screen;
-lv_obj_t * console_screen; // Global handle for the console screen
+lv_obj_t * console_screen;
 lv_obj_t * settings_screen;
 lv_obj_t * time_settings_screen;
-lv_obj_t * ota_update_screen;
 lv_obj_t * nes_browser_screen;
+lv_obj_t * stella_browser_screen;
 
-// Font and new style
+// Custom Styles
 static lv_style_t style_nes_cjk;
+static lv_style_t style_compact_list;
+static lv_style_t style_compact_btn;
 
 // --- Global Preferences ---
 bool show_seconds = true;
 bool is_24_hour_format = true;
 
-// --- Forward Declarations for UI and Helper Functions ---
+// --- Forward Declarations ---
 void create_main_menu(lv_obj_t * parent, lv_group_t * g);
 void create_about_screen(lv_obj_t * parent);
 void create_reboot_msgbox();
@@ -62,7 +59,6 @@ void create_game_screen(lv_obj_t * parent);
 void create_settings_screen(lv_obj_t * parent);
 void create_time_settings_screen();
 void create_time_setter_page();
-// void create_timezone_page();
 void create_show_seconds_page();
 void create_hour_format_page();
 void create_generic_option_page(const char* title, const char** options, lv_event_cb_t event_cb, lv_obj_t* parent_to_hide, lv_event_cb_t close_cb);
@@ -73,20 +69,41 @@ static void generic_delete_obj_event_cb(lv_event_t * e);
 static lv_obj_t* create_styled_list_btn(lv_obj_t * parent, const char * text);
 static void sub_page_close_event_cb(lv_event_t * e);
 static void settings_menu_event_handler(lv_event_t * e);
-// OTA func
-void create_ota_update_screen();
-static void ota_screen_back_btn_event_handler(lv_event_t * e);
-static void ota_screen_close_event_cb(lv_event_t * e);
-
-// --- Style for focused items in custom pages ---
-static lv_style_t style_focused;
 
 // NES
 void create_nes_browser_screen(lv_obj_t * parent);
 static void nes_browser_screen_close_cb(lv_event_t * e);
 static void nes_game_launch_event_handler(lv_event_t * e);
 
-// --- Helper function to read a file into a buffer ---
+// Stella
+void create_stella_browser_screen(lv_obj_t * parent);
+static void stella_browser_screen_close_cb(lv_event_t * e);
+static void stella_game_launch_event_handler(lv_event_t * e);
+
+// --- Style Initialization ---
+void init_custom_styles() {
+    // Compact List Style (保持黑色背景和间隙)
+    lv_style_init(&style_compact_list);
+    lv_style_set_bg_color(&style_compact_list, lv_color_hex(0x000000)); // 纯黑底
+    lv_style_set_radius(&style_compact_list, 0);
+    lv_style_set_pad_all(&style_compact_list, 0);
+    lv_style_set_pad_row(&style_compact_list, 2); // 保持2px黑色间隙
+    lv_style_set_border_width(&style_compact_list, 0);
+
+    // Compact Button Style
+    lv_style_init(&style_compact_btn);
+    lv_style_set_radius(&style_compact_btn, 4); // 稍微给一点点圆角，看起来不那么生硬
+    
+    // 【修改点 1】使用 14号 字体！
+    // 这比之前的 12号 更大、更粗、更明显
+    lv_style_set_text_font(&style_compact_btn, &lv_font_montserrat_14); 
+    
+    lv_style_set_pad_ver(&style_compact_btn, 12); // 高度适中
+    lv_style_set_height(&style_compact_btn, LV_SIZE_CONTENT);
+    lv_style_set_border_width(&style_compact_btn, 0);
+}
+
+// --- Helper Functions ---
 static char* read_file_to_string(const char* filepath, char* buffer, size_t buffer_size) {
     FILE* fp = fopen(filepath, "r");
     if (!fp) {
@@ -99,44 +116,51 @@ static char* read_file_to_string(const char* filepath, char* buffer, size_t buff
     return buffer;
 }
 
-// --- NEWLY ADDED HELPER FUNCTIONS ---
-
-/**
- * @brief Helper function to create a styled list button, reducing code duplication.
- */
 static lv_obj_t* create_styled_list_btn(lv_obj_t * parent, const char * text) {
     lv_obj_t * btn = lv_list_add_btn(parent, NULL, text);
-    lv_obj_set_style_bg_color(btn, lv_color_hex(0x404040), LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(btn, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
-    lv_obj_set_style_text_color(btn, lv_color_hex(0xffffff), 0);
+    lv_obj_add_style(btn, &style_compact_btn, 0);
+
+    // --- 1. 未选中状态 (Default) ---
+    // 背景：浅灰色 (Dim Gray, 0x454545)
+    // 之前的 0x333333 太暗，现在这个颜色能明显看到是灰色的条
+    lv_obj_set_style_bg_color(btn, lv_color_hex(0x454545), LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(btn, LV_OPA_COVER, LV_STATE_DEFAULT);
+    
+    // 文字：【最亮】纯白 (#FFFFFF)
+    // 既然要求最明显，就直接上纯白，不再用灰白
+    lv_obj_set_style_text_color(btn, lv_color_hex(0xFFFFFF), LV_STATE_DEFAULT);
+
+    // --- 2. 选中状态 (Focused) ---
+    // 背景：明亮的青色 (#00BCD4 - Material Design Cyan)
+    lv_obj_set_style_bg_color(btn, lv_color_hex(0x00BCD4), LV_STATE_FOCUSED);
+    
+    // 文字：纯白 (#FFFFFF)
+    // 配合加大的字体，在青色背景上会非常清楚
+    lv_obj_set_style_text_color(btn, lv_color_hex(0xFFFFFF), LV_STATE_FOCUSED);
+
     return btn;
 }
 
-/**
- * @brief Helper function to create a generic options page (e.g., On/Off selectors).
- */
 void create_generic_option_page(const char* title, const char** options, lv_event_cb_t event_cb, lv_obj_t* parent_to_hide, lv_event_cb_t close_cb) {
-    // Hide the parent screen that was passed in
     if(parent_to_hide) lv_obj_add_flag(parent_to_hide, LV_OBJ_FLAG_HIDDEN);
 
-    // Create the new page locally
     lv_obj_t * page = lv_obj_create(lv_scr_act());
-    // NOTE: We no longer modify the global screen handle here
     lv_obj_set_size(page, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(page, lv_color_hex(0x1e1e1e), 0);
     lv_obj_add_event_cb(page, close_cb, LV_EVENT_DELETE, NULL);
+    lv_obj_set_style_pad_all(page, 0, 0);
 
     lv_obj_t * list = lv_list_create(page);
-    lv_obj_center(list);
-    lv_obj_set_size(list, 300, 280);
-    lv_obj_set_style_bg_color(list, lv_color_hex(0x2d2d2d), 0);
+    lv_obj_set_size(list, 280, 200); // Resized for 240p
+    lv_obj_align(list, LV_ALIGN_CENTER, 0, 10); // Center but shifted down slightly for title space if needed
+    lv_obj_add_style(list, &style_compact_list, 0);
 
-    lv_list_add_text(list, title);
+    lv_obj_t* title_lbl = lv_list_add_text(list, title);
+    lv_obj_set_style_text_font(title_lbl, &lv_font_montserrat_12, 0);
 
     lv_group_t * g = lv_group_get_default();
     for (int i = 0; options[i] != NULL; i++) {
         lv_obj_t* btn = create_styled_list_btn(list, options[i]);
-        // Pass the new 'page' object to the click handler so it knows what to delete
         lv_obj_add_event_cb(btn, event_cb, LV_EVENT_CLICKED, page);
         lv_group_add_obj(g, btn);
     }
@@ -156,14 +180,12 @@ void save_preferences() {
     fprintf(fp, "SHOW_SECONDS=%d\n", show_seconds ? 1 : 0);
     fprintf(fp, "IS_24_HOUR=%d\n", is_24_hour_format ? 1 : 0);
     fclose(fp);
-    LV_LOG_USER("Preferences saved.");
 }
 
 void load_preferences() {
     FILE* fp = fopen(PREFS_FILE, "r");
     if (!fp) {
-        LV_LOG_WARN("Preferences file not found, creating with defaults.");
-        save_preferences(); // Create with default values
+        save_preferences();
         return;
     }
     char line[100];
@@ -171,54 +193,37 @@ void load_preferences() {
         char key[50];
         int value;
         if (sscanf(line, "%[^=]=%d", key, &value) == 2) {
-            if (strcmp(key, "SHOW_SECONDS") == 0) {
-                show_seconds = (value == 1);
-            } else if (strcmp(key, "IS_24_HOUR") == 0) {
-                is_24_hour_format = (value == 1);
-            }
+            if (strcmp(key, "SHOW_SECONDS") == 0) show_seconds = (value == 1);
+            else if (strcmp(key, "IS_24_HOUR") == 0) is_24_hour_format = (value == 1);
         }
     }
     fclose(fp);
-    LV_LOG_USER("Preferences loaded.");
 }
 
-// --- Event Callback Functions ---
-
-// Generic handler to delete an object, used for "Back" buttons
+// --- Event Callbacks ---
 static void generic_delete_obj_event_cb(lv_event_t * e) {
     lv_obj_t * obj_to_delete = lv_event_get_user_data(e);
-    if(obj_to_delete) {
-        lv_obj_del(obj_to_delete);
-    }
+    if(obj_to_delete) lv_obj_del(obj_to_delete);
 }
 
-/**
- * @brief Event handler for closing a sub-page of the time settings menu.
- * This restores the main "Time Settings" screen.
- */
 static void sub_page_close_event_cb(lv_event_t * e) {
     if (lv_event_get_code(e) == LV_EVENT_DELETE && time_settings_screen) {
         lv_obj_clear_flag(time_settings_screen, LV_OBJ_FLAG_HIDDEN);
-        // Focus the first option in the time settings list
         lv_group_focus_obj(lv_obj_get_child(time_settings_screen, 0));
     }
 }
 
 static void modal_close_event_cb(lv_event_t * e) {
-    lv_event_code_t code = lv_event_get_code(e);
-    if (code == LV_EVENT_DELETE) {
-        LV_LOG_USER("Modal is closing, restoring main menu...");
-        if(menu_list) {
-            lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
-            lv_group_focus_obj(lv_obj_get_child(menu_list, 0));
-        }
+    if (lv_event_get_code(e) == LV_EVENT_DELETE && menu_list) {
+        lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+        lv_group_focus_obj(lv_obj_get_child(menu_list, 0));
     }
 }
 
 static void settings_screen_close_cb(lv_event_t * e) {
     if (lv_event_get_code(e) == LV_EVENT_DELETE && menu_list) {
         lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
-        lv_group_focus_obj(lv_obj_get_child(menu_list, 2)); // Focus "Settings"
+        lv_group_focus_obj(lv_obj_get_child(menu_list, 3)); // Focus "Settings"
     }
 }
 
@@ -232,15 +237,10 @@ static void time_settings_screen_close_cb(lv_event_t * e) {
 static void reboot_msgbox_event_handler(lv_event_t * e) {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * mbox = lv_event_get_current_target(e);
-
     if (code == LV_EVENT_VALUE_CHANGED) {
         const char * btn_text = lv_msgbox_get_active_btn_text(mbox);
-        if (btn_text && strcmp(btn_text, "Confirm") == 0) {
-            LV_LOG_USER("Reboot confirmed. Rebooting now...");
-            system("reboot");
-        } else {
-            lv_msgbox_close(mbox);
-        }
+        if (btn_text && strcmp(btn_text, "Confirm") == 0) system("reboot");
+        else lv_msgbox_close(mbox);
     }
 }
 
@@ -249,7 +249,7 @@ static void about_screen_back_btn_event_handler(lv_event_t * e) {
     about_screen = NULL;
 }
 
-// --- Time Setter Page: Logic and Callbacks ---
+// --- Time Setter Logic ---
 static int edit_hour;
 static int edit_minute;
 static lv_obj_t * time_setter_hour_label;
@@ -275,14 +275,12 @@ static void time_value_adjust_event_cb(lv_event_t * e) {
 static void time_save_event_cb(lv_event_t * e) {
     char command[50];
     snprintf(command, sizeof(command), "date -s \"%02d:%02d:00\"", edit_hour, edit_minute);
-    LV_LOG_USER("Setting time: %s", command);
     system(command);
     system("hwclock -w");
     time_update_task(NULL);
-    generic_delete_obj_event_cb(e); // Delete the page
+    generic_delete_obj_event_cb(e);
 }
 
-// --- Time Format/Seconds Pages: Logic and Callbacks ---
 static void show_seconds_event_cb(lv_event_t * e) {
     lv_obj_t* btn = lv_event_get_target(e);
     lv_obj_t* page = lv_event_get_user_data(e);
@@ -290,7 +288,7 @@ static void show_seconds_event_cb(lv_event_t * e) {
     show_seconds = (strcmp(text, "On") == 0);
     save_preferences();
     time_update_task(NULL);
-    if(page) lv_obj_del(page); // Go back
+    if(page) lv_obj_del(page);
 }
 
 static void hour_format_event_cb(lv_event_t * e) {
@@ -300,16 +298,7 @@ static void hour_format_event_cb(lv_event_t * e) {
     is_24_hour_format = (strcmp(text, "24 Hour") == 0);
     save_preferences();
     time_update_task(NULL);
-    if(page) lv_obj_del(page); // Go back
-}
-
-static void timezone_select_event_handler(lv_event_t * e) {
-    const char * tz = lv_obj_get_user_data(lv_event_get_target(e));
-    char command[100];
-    snprintf(command, sizeof(command), "ln -sf /usr/share/zoneinfo/%s /etc/localtime", tz);
-    LV_LOG_USER("Setting timezone: %s", command);
-    system(command);
-    generic_delete_obj_event_cb(e); // Go back
+    if(page) lv_obj_del(page);
 }
 
 static void time_update_task(lv_timer_t * timer) {
@@ -322,61 +311,44 @@ static void time_update_task(lv_timer_t * timer) {
     lv_label_set_text(time_label, time_str);
 }
 
-
 // --- Menu Handlers ---
-static void main_menu_event_handler(lv_event_t * e)
-{
+static void main_menu_event_handler(lv_event_t * e) {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
 
     if(code == LV_EVENT_CLICKED) {
         const char * text = lv_list_get_btn_text(menu_list, obj);
-        LV_LOG_USER("Clicked: %s", text);
-
         if (strcmp(text, "About") == 0) {
             lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
             create_about_screen(lv_scr_act());
         }
-        else if (strcmp(text, "Reboot") == 0) {
-            create_reboot_msgbox();
-        }
-        else if (strcmp(text, "Console") == 0) {
-            create_console_screen(lv_scr_act());
-        }
+        else if (strcmp(text, "Reboot") == 0) create_reboot_msgbox();
+        else if (strcmp(text, "Console") == 0) create_console_screen(lv_scr_act());
         else if (strcmp(text, "Settings") == 0) {
             lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
             create_settings_screen(lv_scr_act());
         }
-        if (strcmp(text, "Start Game") == 0) {
-            create_game_screen(lv_scr_act());
-        }
+        else if (strcmp(text, "Meow RPG") == 0) create_game_screen(lv_scr_act());
         else if (strcmp(text, "NES Emulator") == 0) {
             lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
             create_nes_browser_screen(lv_scr_act());
+        }
+        else if (strcmp(text, "Stella") == 0) {
+            lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+            create_stella_browser_screen(lv_scr_act());
         }
     }
 }
 
 static void settings_menu_event_handler(lv_event_t * e) {
     lv_obj_t * obj = lv_event_get_target(e);
-    // Since settings_screen is a list, we get the button text this way
     const char * text = lv_list_get_btn_text(settings_screen, obj);
 
     if (strcmp(text, "Time Settings") == 0) {
-        // Hide the current settings screen
         lv_obj_add_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
-        // Create the time settings sub-menu
         create_time_settings_screen();
     } 
-    else if (strcmp(text, "OTA Update") == 0) {
-        lv_obj_add_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
-        create_ota_update_screen();
-    }
-    else if (strcmp(text, "Back") == 0) {
-        // Delete the settings screen. Its LV_EVENT_DELETE callback will
-        // automatically un-hide the main menu.
-        lv_obj_del(settings_screen);
-    }
+    else if (strcmp(text, "Back") == 0) lv_obj_del(settings_screen);
 }
 
 static void time_settings_menu_event_handler(lv_event_t * e) {
@@ -384,36 +356,25 @@ static void time_settings_menu_event_handler(lv_event_t * e) {
     const char * text = lv_list_get_btn_text(time_settings_screen, obj);
 
     if (strcmp(text, "Set time") == 0) create_time_setter_page();
-    // else if (strcmp(text, "Timezone") == 0) create_timezone_page(); // REMOVED
     else if (strcmp(text, "Second display") == 0) create_show_seconds_page();
     else if (strcmp(text, "12/24 Hour format") == 0) create_hour_format_page();
     else if (strcmp(text, "Back") == 0) lv_obj_del(time_settings_screen);
 }
 
 static void console_exit_event_handler(lv_event_t * e) {
-    LV_LOG_USER("Exiting console mode.");
-    system("/etc/init.d/S99fbterm stop");
-
-    if(console_screen) {
-        lv_obj_del(console_screen);
-        console_screen = NULL;
-    }
-
+    system("/oem/usr/etc/init.d/S98fbterm stop");
+    if(console_screen) { lv_obj_del(console_screen); console_screen = NULL; }
     if(menu_list) {
         lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
         lv_obj_t* console_btn = lv_obj_get_child(menu_list, 1);
-        if(console_btn) {
-            lv_group_focus_obj(console_btn);
-        }
+        if(console_btn) lv_group_focus_obj(console_btn);
     }
-    if(time_label) {
-        lv_obj_clear_flag(time_label, LV_OBJ_FLAG_HIDDEN);
-    }
-    
+    if(time_label) lv_obj_clear_flag(time_label, LV_OBJ_FLAG_HIDDEN);
     lv_refr_now(lv_disp_get_default());
 }
 
 // --- UI Creation Functions ---
+
 void create_console_screen(lv_obj_t * parent) {
     lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
     lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
@@ -421,18 +382,19 @@ void create_console_screen(lv_obj_t * parent) {
     console_screen = lv_obj_create(parent);
     lv_obj_remove_style_all(console_screen);
     lv_obj_set_size(console_screen, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_pos(console_screen, 0, 0);
     lv_obj_set_style_bg_color(console_screen, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(console_screen, LV_OPA_COVER, 0);
 
     lv_obj_t * exit_btn = lv_btn_create(console_screen);
-    lv_obj_align(exit_btn, LV_ALIGN_BOTTOM_MID, 0, -20);
+    lv_obj_align(exit_btn, LV_ALIGN_BOTTOM_MID, 0, -5); // Tighter bottom margin
     lv_obj_add_event_cb(exit_btn, console_exit_event_handler, LV_EVENT_CLICKED, NULL);
     lv_obj_set_style_bg_color(exit_btn, lv_color_hex(0x404040), LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(exit_btn, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
+    lv_obj_set_height(exit_btn, 24); // Smaller button
 
     lv_obj_t * exit_label = lv_label_create(exit_btn);
     lv_label_set_text(exit_label, "Exit");
+    lv_obj_set_style_text_font(exit_label, &lv_font_montserrat_12, 0); // Smaller font
     lv_obj_center(exit_label);
     lv_obj_set_style_text_color(exit_label, lv_color_hex(0xffffff), 0);
 
@@ -442,49 +404,36 @@ void create_console_screen(lv_obj_t * parent) {
     
     lv_timer_handler();
     usleep(16000);
-
-    LV_LOG_USER("Starting fbterm...");
-    system("/etc/init.d/S99fbterm start_with_input &");
+    system("/oem/usr/etc/init.d/S98fbterm start_with_input &");
 }
 
-// Creation functions
 void create_game_screen(lv_obj_t * parent) {
-    // 1. 隐藏主菜单和时间标签
     lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
     lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
-    
-    // 2. 创建一个覆盖全屏的黑色背景，作为过渡界面
     console_screen = lv_obj_create(parent);
     lv_obj_remove_style_all(console_screen);
     lv_obj_set_size(console_screen, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_pos(console_screen, 0, 0);
     lv_obj_set_style_bg_color(console_screen, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(console_screen, LV_OPA_COVER, 0);
-
-    // 3. 强制 LVGL 立即绘制黑色屏幕，确保视觉上平滑过渡
     lv_timer_handler();
-    usleep(16000); // 等待一帧的时间
-
-    // 4. 在后台执行游戏启动脚本
-    LV_LOG_USER("Handing control to game script...");
-    
-    // Execute kill and launch game shell
-    system("/root/term_start_all.sh < /dev/null &");
+    usleep(16000);
+    system("/oem/lv_execute/term_start_all.sh < /dev/null &");
 }
 
 void create_reboot_msgbox() {
     lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
-
     static const char * btns[] = {"Confirm", ""};
     
-    lv_obj_t * mbox = lv_msgbox_create(lv_scr_act(), "Reboot", "Are you sure you want to reboot?", btns, true);
+    lv_obj_t * mbox = lv_msgbox_create(lv_scr_act(), "Reboot", "Reboot system?", btns, true);
+    lv_obj_set_width(mbox, 260); // Limit width for 240p
     lv_obj_add_event_cb(mbox, reboot_msgbox_event_handler, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(mbox, modal_close_event_cb, LV_EVENT_DELETE, NULL);
     lv_obj_center(mbox);
 
     lv_obj_set_style_bg_color(mbox, lv_color_hex(0x2d2d2d), 0);
-    lv_obj_set_style_text_color(lv_msgbox_get_title(mbox), lv_color_hex(0xe0e0e0), 0);
-    lv_obj_set_style_text_color(lv_msgbox_get_text(mbox), lv_color_hex(0xc0c0c0), 0);
+    lv_obj_set_style_text_font(mbox, &lv_font_montserrat_12, 0); // Consistent font
+    lv_obj_set_style_text_color(lv_msgbox_get_title(mbox), lv_color_hex(0xFFFFFF), 0);
+    lv_obj_set_style_text_color(lv_msgbox_get_text(mbox), lv_color_hex(0xffffff), 0);
     
     lv_obj_t * mbox_btns = lv_msgbox_get_btns(mbox);
     lv_obj_set_style_bg_color(mbox_btns, lv_color_hex(0x404040), LV_PART_ITEMS);
@@ -496,7 +445,6 @@ void create_reboot_msgbox() {
         lv_obj_set_style_bg_color(close_btn, lv_color_hex(0x404040), LV_STATE_DEFAULT);
         lv_obj_set_style_bg_color(close_btn, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
     }
-    
     lv_group_add_obj(lv_group_get_default(), mbox);
     lv_group_focus_obj(mbox);
 }
@@ -504,9 +452,10 @@ void create_reboot_msgbox() {
 void create_about_screen(lv_obj_t * parent) {
     about_screen = lv_obj_create(parent);
     lv_obj_add_event_cb(about_screen, modal_close_event_cb, LV_EVENT_DELETE, NULL);
-    lv_obj_set_size(about_screen, lv_obj_get_width(parent), lv_obj_get_height(parent));
+    lv_obj_set_size(about_screen, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(about_screen, lv_color_hex(0x1e1e1e), 0);
     lv_obj_set_style_border_width(about_screen, 0, 0);
+    lv_obj_set_style_pad_all(about_screen, 5, 0);
 
     char buffer[512];
     long mem_total = 0, mem_available = 0;
@@ -520,25 +469,28 @@ void create_about_screen(lv_obj_t * parent) {
         fclose(fp);
     }
     snprintf(buffer, sizeof(buffer),
-        "Device: Luckfox Pico\n"
-        "Memory: %ld MB / %ld MB Available\n\n"
-        "Package Version:\n%s\n"
-        "Developer: Snowmiku\ngithub.com/18650official",
+        "Device: Miku Console 2026\n"
+        "RAM: %ld / %ld MB\n\n"
+        "Ver:\n%s\n"
+        "Dev: Snowmiku",
         mem_total / 1024, mem_available / 1024,
-        read_file_to_string("/oem/pkpy/info", (char[256]){"Reading..."}, 256));
+        read_file_to_string("/oem/.mkconsole_info", (char[256]){"Reading..."}, 256));
 
     lv_obj_t * about_label = lv_label_create(about_screen);
     lv_label_set_text(about_label, buffer);
     lv_obj_set_style_text_color(about_label, lv_color_hex(0xe0e0e0), 0);
-    lv_obj_set_style_text_font(about_label, &lv_font_montserrat_16, 0);
-    lv_obj_align(about_label, LV_ALIGN_TOP_LEFT, 20, 20);
+    lv_obj_set_style_text_font(about_label, &lv_font_montserrat_12, 0); // Small font
+    lv_obj_set_width(about_label, 280); // Ensure wrapping
+    lv_obj_align(about_label, LV_ALIGN_TOP_LEFT, 10, 20);
 
     lv_obj_t * back_btn = lv_btn_create(about_screen);
-    lv_obj_align(back_btn, LV_ALIGN_BOTTOM_MID, 0, -20);
+    lv_obj_set_height(back_btn, 24);
+    lv_obj_align(back_btn, LV_ALIGN_BOTTOM_MID, 0, -5);
     lv_obj_add_event_cb(back_btn, about_screen_back_btn_event_handler, LV_EVENT_CLICKED, NULL);
 
     lv_obj_t * back_label = lv_label_create(back_btn);
     lv_label_set_text(back_label, "Back");
+    lv_obj_set_style_text_font(back_label, &lv_font_montserrat_12, 0);
     lv_obj_center(back_label);
 
     lv_group_add_obj(lv_group_get_default(), back_btn);
@@ -547,30 +499,26 @@ void create_about_screen(lv_obj_t * parent) {
 
 void create_main_menu(lv_obj_t * parent, lv_group_t * g) {
     menu_list = lv_list_create(parent);
-    lv_obj_set_size(menu_list, 300, 240);
-    lv_obj_center(menu_list);
-    lv_obj_set_style_bg_color(menu_list, lv_color_hex(0x2d2d2d), 0);
-    lv_obj_set_style_border_width(menu_list, 0, 0);
-    lv_obj_set_style_pad_all(menu_list, 10, 0);
+    // 280x200 to fit under the clock and inside screen
+    lv_obj_set_size(menu_list, 280, 200);
+    lv_obj_align(menu_list, LV_ALIGN_BOTTOM_MID, 0, -5);
+    lv_obj_add_style(menu_list, &style_compact_list, 0);
 
-    const char * menu_items[] = {"Start Game", "Console", "NES Emulator", "Settings", "About", "Reboot"};
-    for(int i = 0; i < sizeof(menu_items)/sizeof(menu_items[0]); i++) { // 循环次数会自动更新
+    const char * menu_items[] = {"Meow RPG", "NES Emulator", "Stella", "Console", "Settings", "About", "Reboot"};
+    for(int i = 0; i < sizeof(menu_items)/sizeof(menu_items[0]); i++) {
         lv_obj_t * btn = create_styled_list_btn(menu_list, menu_items[i]);
         lv_obj_add_event_cb(btn, main_menu_event_handler, LV_EVENT_CLICKED, NULL);
         lv_group_add_obj(g, btn);
     }
 }
 
-// --- Time and Settings Screen Creation ---
 void create_show_seconds_page() {
     static const char* opts[] = {"On", "Off", NULL};
-    // The call is now simpler: we pass time_settings_screen directly
-    create_generic_option_page("Second Display", opts, show_seconds_event_cb, time_settings_screen, sub_page_close_event_cb);
+    create_generic_option_page("Show Seconds", opts, show_seconds_event_cb, time_settings_screen, sub_page_close_event_cb);
 }
 
 void create_hour_format_page() {
-    static const char* opts[] = {"24 Hour", "12 Hour", NULL}; // Corrected options
-    // The call is now simpler
+    static const char* opts[] = {"24 Hour", "12 Hour", NULL};
     create_generic_option_page("Time Format", opts, hour_format_event_cb, time_settings_screen, sub_page_close_event_cb);
 }
 
@@ -581,6 +529,7 @@ void create_time_setter_page() {
     lv_obj_set_size(page, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(page, lv_color_hex(0x1e1e1e), 0);
     lv_obj_add_event_cb(page, sub_page_close_event_cb, LV_EVENT_DELETE, NULL);
+    lv_obj_set_style_pad_all(page, 0, 0);
 
     time_t t = time(NULL);
     struct tm *tm_info = localtime(&t);
@@ -589,56 +538,62 @@ void create_time_setter_page() {
 
     lv_obj_t* container = lv_obj_create(page);
     lv_obj_center(container);
-    lv_obj_set_size(container, 350, 150);
+    lv_obj_set_size(container, 280, 140); // Compact container
     lv_obj_set_style_bg_opa(container, LV_OPA_TRANSP, 0);
     lv_obj_set_style_border_width(container, 0, 0);
     lv_obj_set_flex_flow(container, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(container, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_set_style_pad_column(container, 20, 0);
+    lv_obj_set_style_pad_column(container, 10, 0);
 
-    // --- 修改小时对象 ---
+    // Hour Box
     lv_obj_t * hour_obj = lv_obj_create(container);
-    lv_obj_set_size(hour_obj, 100, 80);
+    lv_obj_set_size(hour_obj, 80, 70);
     lv_obj_set_style_bg_color(hour_obj, lv_color_hex(0x404040), 0);
-    // 移除边框样式，改为和主菜单一样的背景色高亮
-    // lv_obj_add_style(hour_obj, &style_focused, LV_STATE_FOCUSED); // <-- 删除此行
-    lv_obj_set_style_bg_color(hour_obj, lv_color_hex(0x5070a0), LV_STATE_FOCUSED); // <-- 添加此行
+    lv_obj_set_style_bg_color(hour_obj, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
+    lv_obj_set_scrollbar_mode(hour_obj, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_style_border_width(hour_obj, 0, 0);
+
     time_setter_hour_label = lv_label_create(hour_obj);
     lv_label_set_text_fmt(time_setter_hour_label, "%02d", edit_hour);
-    lv_obj_set_style_text_font(time_setter_hour_label, &lv_font_montserrat_48, 0);
+    lv_obj_set_style_text_font(time_setter_hour_label, &lv_font_montserrat_36, 0); // Requested size
     lv_obj_set_style_text_color(time_setter_hour_label, lv_color_white(), 0);
     lv_obj_center(time_setter_hour_label);
     lv_obj_add_event_cb(hour_obj, time_value_adjust_event_cb, LV_EVENT_KEY, time_setter_hour_label);
 
     lv_obj_t* sep_label = lv_label_create(container);
     lv_label_set_text(sep_label, ":");
-    lv_obj_set_style_text_font(sep_label, &lv_font_montserrat_48, 0);
+    lv_obj_set_style_text_font(sep_label, &lv_font_montserrat_36, 0);
     lv_obj_set_style_text_color(sep_label, lv_color_white(), 0);
 
-    // --- 修改分钟对象 ---
+    // Minute Box
     lv_obj_t * minute_obj = lv_obj_create(container);
-    lv_obj_set_size(minute_obj, 100, 80);
+    lv_obj_set_size(minute_obj, 80, 70);
     lv_obj_set_style_bg_color(minute_obj, lv_color_hex(0x404040), 0);
-    // 移除边框样式，改为和主菜单一样的背景色高亮
-    // lv_obj_add_style(minute_obj, &style_focused, LV_STATE_FOCUSED); // <-- 删除此行
-    lv_obj_set_style_bg_color(minute_obj, lv_color_hex(0x5070a0), LV_STATE_FOCUSED); // <-- 添加此行
+    lv_obj_set_style_bg_color(minute_obj, lv_color_hex(0x5070a0), LV_STATE_FOCUSED);
+    lv_obj_set_scrollbar_mode(minute_obj, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_style_border_width(minute_obj, 0, 0);
+
     time_setter_minute_label = lv_label_create(minute_obj);
     lv_label_set_text_fmt(time_setter_minute_label, "%02d", edit_minute);
-    lv_obj_set_style_text_font(time_setter_minute_label, &lv_font_montserrat_48, 0);
+    lv_obj_set_style_text_font(time_setter_minute_label, &lv_font_montserrat_36, 0); // Requested size
     lv_obj_set_style_text_color(time_setter_minute_label, lv_color_white(), 0);
     lv_obj_center(time_setter_minute_label);
     lv_obj_add_event_cb(minute_obj, time_value_adjust_event_cb, LV_EVENT_KEY, time_setter_minute_label);
 
     lv_obj_t* save_btn = lv_btn_create(page);
-    lv_obj_align(save_btn, LV_ALIGN_BOTTOM_LEFT, 40, -20);
+    lv_obj_set_height(save_btn, 30);
+    lv_obj_align(save_btn, LV_ALIGN_BOTTOM_LEFT, 20, -10);
     lv_obj_t* save_label = lv_label_create(save_btn);
     lv_label_set_text(save_label, "Save");
+    lv_obj_set_style_text_font(save_label, &lv_font_montserrat_12, 0);
     lv_obj_add_event_cb(save_btn, time_save_event_cb, LV_EVENT_CLICKED, page);
 
     lv_obj_t* back_btn = lv_btn_create(page);
-    lv_obj_align(back_btn, LV_ALIGN_BOTTOM_RIGHT, -40, -20);
+    lv_obj_set_height(back_btn, 30);
+    lv_obj_align(back_btn, LV_ALIGN_BOTTOM_RIGHT, -20, -10);
     lv_obj_t* back_label = lv_label_create(back_btn);
     lv_label_set_text(back_label, "Back");
+    lv_obj_set_style_text_font(back_label, &lv_font_montserrat_12, 0);
     lv_obj_add_event_cb(back_btn, generic_delete_obj_event_cb, LV_EVENT_CLICKED, page);
 
     lv_group_t* g = lv_group_get_default();
@@ -651,14 +606,13 @@ void create_time_setter_page() {
 
 void create_time_settings_screen() {
     time_settings_screen = lv_list_create(lv_scr_act());
-    lv_obj_set_size(time_settings_screen, 300, 280);
-    lv_obj_center(time_settings_screen);
+    lv_obj_set_size(time_settings_screen, 280, 190);
+    lv_obj_align(time_settings_screen, LV_ALIGN_CENTER, 0, 10);
     lv_obj_add_event_cb(time_settings_screen, time_settings_screen_close_cb, LV_EVENT_DELETE, NULL);
-    lv_obj_set_style_bg_color(time_settings_screen, lv_color_hex(0x2d2d2d), 0);
+    lv_obj_add_style(time_settings_screen, &style_compact_list, 0);
 
-    // Removed "Timezone" from the list
     const char * items[] = {"Set time", "Second display", "12/24 Hour format", "Back"};
-    for (int i = 0; i < 4; i++) { // Loop count is now 4
+    for (int i = 0; i < 4; i++) {
         lv_obj_t * btn = create_styled_list_btn(time_settings_screen, items[i]);
         lv_obj_add_event_cb(btn, time_settings_menu_event_handler, LV_EVENT_CLICKED, NULL);
         lv_group_add_obj(lv_group_get_default(), btn);
@@ -666,93 +620,15 @@ void create_time_settings_screen() {
     lv_group_focus_obj(lv_obj_get_child(time_settings_screen, 0));
 }
 
-/**
- * @brief OTA 屏幕的删除事件回调。
- * 这是停止 httpd 服务和恢复设置菜单的最佳位置。
- */
-static void ota_screen_close_event_cb(lv_event_t * e) {
-    if (lv_event_get_code(e) == LV_EVENT_DELETE) {
-        LV_LOG_USER("Closing OTA screen, stopping httpd...");
-        system("toggle_httpd.sh stop &"); // 在后台停止服务
-
-        // 恢复设置屏幕
-        if (settings_screen) {
-            lv_obj_clear_flag(settings_screen, LV_OBJ_FLAG_HIDDEN);
-            // 重新聚焦到 "OTA Update" 按钮 (索引 1)
-            lv_group_focus_obj(lv_obj_get_child(settings_screen, 1)); 
-        }
-    }
-}
-
-/**
- * @brief OTA 屏幕上的 "Back" 按钮的点击事件处理。
- * 它只负责删除 OTA 屏幕。
- */
-static void ota_screen_back_btn_event_handler(lv_event_t * e) {
-    if (ota_update_screen) {
-        lv_obj_del(ota_update_screen);
-        ota_update_screen = NULL;
-    }
-}
-
-/**
- * @brief 创建 OTA 更新界面。
- */
-void create_ota_update_screen() {
-    LV_LOG_USER("Starting httpd for OTA update...");
-    system("toggle_httpd.sh restart &"); // 在后台启动服务
-
-    // 1. 创建全屏页面 (时钟会保留，因为它在 lv_scr_act() 上)
-    ota_update_screen = lv_obj_create(lv_scr_act());
-    lv_obj_set_size(ota_update_screen, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_pos(ota_update_screen, 0, 0);
-    lv_obj_set_style_bg_color(ota_update_screen, lv_color_hex(0x1e1e1e), 0);
-    lv_obj_set_style_border_width(ota_update_screen, 0, 0);
-    // 添加删除事件回调，用于清理
-    lv_obj_add_event_cb(ota_update_screen, ota_screen_close_event_cb, LV_EVENT_DELETE, NULL);
-
-    // 2. 创建指导语标签
-    lv_obj_t * label = lv_label_create(ota_update_screen);
-    const char * instructions = 
-        "Connect to your computer.\n\n"
-        "Open a web browser and go to:\n"
-        "http://172.32.0.92\n\n"
-        "Upload the update package.";
-    
-    lv_label_set_text(label, instructions);
-    lv_obj_set_style_text_color(label, lv_color_hex(0xe0e0e0), 0);
-    lv_obj_set_style_text_font(label, &lv_font_montserrat_16, 0);
-    lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
-    lv_label_set_long_mode(label, LV_LABEL_LONG_WRAP); // 允许换行
-    lv_obj_set_width(label, 400); // 设置宽度以触发展开
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, -20); // 放在中间偏上的位置
-
-    // 3. 创建 "Back" 按钮
-    lv_obj_t * back_btn = lv_btn_create(ota_update_screen);
-    lv_obj_align(back_btn, LV_ALIGN_BOTTOM_MID, 0, -20);
-    lv_obj_add_event_cb(back_btn, ota_screen_back_btn_event_handler, LV_EVENT_CLICKED, NULL);
-
-    lv_obj_t * back_label = lv_label_create(back_btn);
-    lv_label_set_text(back_label, "Back");
-    lv_obj_center(back_label);
-
-    // 4. 将 "Back" 按钮添加到输入组
-    lv_group_t * g = lv_group_get_default();
-    lv_group_add_obj(g, back_btn);
-    lv_group_focus_obj(back_btn);
-}
-
 void create_settings_screen(lv_obj_t * parent) {
     settings_screen = lv_list_create(parent);
-    lv_obj_set_size(settings_screen, 300, 240);
-    lv_obj_center(settings_screen);
+    lv_obj_set_size(settings_screen, 280, 190);
+    lv_obj_align(settings_screen, LV_ALIGN_CENTER, 0, 10);
     lv_obj_add_event_cb(settings_screen, settings_screen_close_cb, LV_EVENT_DELETE, NULL);
-    lv_obj_set_style_bg_color(settings_screen, lv_color_hex(0x2d2d2d), 0);
+    lv_obj_add_style(settings_screen, &style_compact_list, 0);
 
     create_styled_list_btn(settings_screen, "Time Settings");
-    create_styled_list_btn(settings_screen, "OTA Update");
     create_styled_list_btn(settings_screen, "Back");
-
 
     lv_group_t * g = lv_group_get_default();
     for (uint32_t i = 0; i < lv_obj_get_child_cnt(settings_screen); i++) {
@@ -763,126 +639,151 @@ void create_settings_screen(lv_obj_t * parent) {
     lv_group_focus_obj(lv_obj_get_child(settings_screen, 0));
 }
 
-// Create NES game file browser
-/**
- * @brief 当 NES 浏览器屏幕被删除时调用，用于恢复主菜单。
- */
 static void nes_browser_screen_close_cb(lv_event_t * e) {
     if (lv_event_get_code(e) == LV_EVENT_DELETE && menu_list) {
         lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
-        // 聚焦回 "NES Emulator" 按钮 (索引 1)
-        lv_group_focus_obj(lv_obj_get_child(menu_list, 1)); 
+        lv_group_focus_obj(lv_obj_get_child(menu_list, 2)); 
     }
 }
 
-/**
- * @brief 点击游戏文件按钮时触发。
- */
+static void stella_browser_screen_close_cb(lv_event_t * e) {
+    if (lv_event_get_code(e) == LV_EVENT_DELETE && menu_list) {
+        lv_obj_clear_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+        lv_group_focus_obj(lv_obj_get_child(menu_list, 2)); 
+    }
+}
+
 static void nes_game_launch_event_handler(lv_event_t * e) {
     const char * filename = lv_event_get_user_data(e);
     if (!filename) return;
 
-    // 1. 准备要执行的命令
     char command[512];
-    // Create the command
-    snprintf(command, sizeof(command), 
-        "/root/nes_start.sh \"/oem/nes_game/%s\" &", 
-        filename);
-
-    LV_LOG_USER("Executing: %s", command);
-
-    // 2. 隐藏所有 LVGL UI
+    snprintf(command, sizeof(command), "/oem/lv_execute/nes_start.sh \"/oem/nes_games/%s\" &", filename);
+    
     if(menu_list) lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
     if(time_label) lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
     if(nes_browser_screen) lv_obj_add_flag(nes_browser_screen, LV_OBJ_FLAG_HIDDEN);
     
-    // 3. 创建一个临时的黑色过渡屏幕
     lv_obj_t * transition_screen = lv_obj_create(lv_scr_act());
     lv_obj_remove_style_all(transition_screen);
     lv_obj_set_size(transition_screen, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(transition_screen, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(transition_screen, LV_OPA_COVER, 0);
 
-    // 4. 强制 LVGL 立即绘制黑色屏幕
     lv_timer_handler();
     usleep(16000); 
-
-    // 5. 执行脚本
     system(command);
-    
-    // 此时，/etc/init.d/S99lvgl stop 应该已经开始执行，这个进程很快会被杀死
 }
 
-/**
- * @brief 创建 NES 游戏文件浏览器屏幕。
- */
+static void stella_game_launch_event_handler(lv_event_t * e) {
+    const char * filename = lv_event_get_user_data(e);
+    if (!filename) return;
+
+    char command[512];
+    snprintf(command, sizeof(command), "/oem/lv_execute/stella_start.sh \"/oem/atari_games/%s\" &", filename);
+    
+    if(menu_list) lv_obj_add_flag(menu_list, LV_OBJ_FLAG_HIDDEN);
+    if(time_label) lv_obj_add_flag(time_label, LV_OBJ_FLAG_HIDDEN);
+    if(nes_browser_screen) lv_obj_add_flag(nes_browser_screen, LV_OBJ_FLAG_HIDDEN);
+    
+    lv_obj_t * transition_screen = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(transition_screen);
+    lv_obj_set_size(transition_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_style_bg_color(transition_screen, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(transition_screen, LV_OPA_COVER, 0);
+
+    lv_timer_handler();
+    usleep(16000); 
+    system(command);
+}
+
 void create_nes_browser_screen(lv_obj_t * parent) {
     nes_browser_screen = lv_list_create(parent);
-    // Add CJK Support 
     lv_obj_add_style(nes_browser_screen, &style_nes_cjk, 0);    
+    lv_obj_add_style(nes_browser_screen, &style_compact_list, 0);
 
-    lv_obj_set_size(nes_browser_screen, 300, 280); // 尺寸可以调整
-    lv_obj_center(nes_browser_screen);
+    lv_obj_set_size(nes_browser_screen, 280, 190);
+    lv_obj_align(nes_browser_screen, LV_ALIGN_CENTER, 0, 10);
     lv_obj_add_event_cb(nes_browser_screen, nes_browser_screen_close_cb, LV_EVENT_DELETE, NULL);
-    lv_obj_set_style_bg_color(nes_browser_screen, lv_color_hex(0x2d2d2d), 0);
 
     lv_group_t * g = lv_group_get_default();
 
-    // 1. 添加 "Back" 按钮
     lv_obj_t * btn_back = create_styled_list_btn(nes_browser_screen, "Back");
-    // 使用 generic_delete_obj_event_cb 来关闭这个屏幕
     lv_obj_add_event_cb(btn_back, generic_delete_obj_event_cb, LV_EVENT_CLICKED, nes_browser_screen);
     lv_group_add_obj(g, btn_back);
 
-    // 2. 遍历 /oem/nes_game 目录
-    const char * dir_path = "/oem/nes_game";
+    const char * dir_path = "/oem/nes_games";
     DIR *d;
     struct dirent *dir;
     d = opendir(dir_path);
     if (d) {
         while ((dir = readdir(d)) != NULL) {
-            // 过滤掉 '.' 和 '..'
-            if (dir->d_type == DT_REG) { // 只显示普通文件
-                // 注意：dir->d_name 是一个临时指针，必须复制它的内容
+            if (dir->d_type == DT_REG) {
                 char* filename_copy = strdup(dir->d_name);
                 if (filename_copy) {
                     lv_obj_t * btn_game = create_styled_list_btn(nes_browser_screen, filename_copy);
-                    // 将复制的文件名字符串作为 user_data 传递
                     lv_obj_add_event_cb(btn_game, nes_game_launch_event_handler, LV_EVENT_CLICKED, filename_copy);
-                    // (如上次所说，这里有一个小的内存泄漏，但在你的使用场景中不是问题)
                     lv_group_add_obj(g, btn_game);
                 }
             }
         }
         closedir(d);
     } else {
-        LV_LOG_ERROR("Failed to open directory: %s", dir_path);
         lv_list_add_text(nes_browser_screen, "Error: Cannot open dir");
     }
-
-    // 3. 默认聚焦到 "Back" 按钮
     lv_group_focus_obj(btn_back);
 } 
-// NES end
+
+void create_stella_browser_screen(lv_obj_t * parent) {
+    stella_browser_screen = lv_list_create(parent);
+    lv_obj_add_style(stella_browser_screen, &style_nes_cjk, 0);    
+    lv_obj_add_style(stella_browser_screen, &style_compact_list, 0);
+
+    lv_obj_set_size(stella_browser_screen, 280, 190);
+    lv_obj_align(stella_browser_screen, LV_ALIGN_CENTER, 0, 10);
+    lv_obj_add_event_cb(stella_browser_screen, stella_browser_screen_close_cb, LV_EVENT_DELETE, NULL);
+
+    lv_group_t * g = lv_group_get_default();
+
+    lv_obj_t * btn_back = create_styled_list_btn(stella_browser_screen, "Back");
+    lv_obj_add_event_cb(btn_back, generic_delete_obj_event_cb, LV_EVENT_CLICKED, stella_browser_screen);
+    lv_group_add_obj(g, btn_back);
+
+    const char * dir_path = "/oem/atari_games";
+    DIR *d;
+    struct dirent *dir;
+    d = opendir(dir_path);
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            if (dir->d_type == DT_REG) {
+                char* filename_copy = strdup(dir->d_name);
+                if (filename_copy) {
+                    lv_obj_t * btn_game = create_styled_list_btn(stella_browser_screen, filename_copy);
+                    lv_obj_add_event_cb(btn_game, stella_game_launch_event_handler, LV_EVENT_CLICKED, filename_copy);
+                    lv_group_add_obj(g, btn_game);
+                }
+            }
+        }
+        closedir(d);
+    } else {
+        lv_list_add_text(stella_browser_screen, "Error: Cannot open dir");
+    }
+    lv_group_focus_obj(btn_back);
+} 
 
 // --- Main Application Entry ---
 int main(void)
 {
     lv_init();
     
-    // --- 既然不再需要高亮边框，我们就可以删除这段代码了 ---
-    /*
-    lv_style_init(&style_focused);
-    lv_style_set_outline_color(&style_focused, lv_palette_main(LV_PALETTE_BLUE));
-    lv_style_set_outline_width(&style_focused, 2);
-    lv_style_set_outline_pad(&style_focused, 2);
-    */
+    // Init Styles first
+    init_custom_styles();
 
-    // Init the font
+    // Init the font for CJK
     lv_style_init(&style_nes_cjk);
     lv_style_set_text_font(&style_nes_cjk, &nes_font_16);
 
-    load_preferences(); // Load saved settings at startup
+    load_preferences(); 
 
     fbdev_init();
 
@@ -895,7 +796,7 @@ int main(void)
     disp_drv.draw_buf  = &disp_buf;
     disp_drv.flush_cb  = fbdev_flush;
     disp_drv.hor_res   = 320;
-    disp_drv.ver_res   = 480;
+    disp_drv.ver_res   = 240;
     lv_disp_drv_register(&disp_drv);
     
     evdev_init();
@@ -913,14 +814,21 @@ int main(void)
 
     // --- UI Creation ---
     lv_obj_t * screen = lv_scr_act();
-    lv_obj_set_style_bg_color(screen, lv_color_hex(0x1e1e1e), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN);
 
     time_label = lv_label_create(screen);
-    lv_obj_set_style_text_color(time_label, lv_color_hex(0xe0e0e0), 0);
-    lv_obj_set_style_text_font(time_label, &lv_font_montserrat_20, 0);
-    lv_obj_align(time_label, LV_ALIGN_TOP_RIGHT, -10, 10);
     
-    time_update_task(NULL); // Initial time update
+    // 【修改点 1】颜色：改为最亮的纯白 (0xFFFFFF)，配合列表风格
+    lv_obj_set_style_text_color(time_label, lv_color_hex(0xFFFFFF), 0);
+    
+    // 【修改点 2】字体：改为 nes_font_16
+    // 原来的 montserrat_14 边缘发虚，NES 字体是像素点阵，看起来又粗又清晰
+    lv_obj_set_style_text_font(time_label, &lv_font_montserrat_16, 0); 
+    
+    // 调整位置：因为字体变大了，可能需要微调一下对齐，以免贴边太紧
+    lv_obj_align(time_label, LV_ALIGN_TOP_RIGHT, -8, 8); 
+    
+    time_update_task(NULL); 
     lv_timer_create(time_update_task, 1000, NULL);
 
     create_main_menu(screen, g);
@@ -933,6 +841,7 @@ int main(void)
     return 0;
 }
 
+// Tick for LVGL
 uint32_t custom_tick_get(void)
 {
     static uint64_t start_ms = 0;
@@ -947,6 +856,5 @@ uint32_t custom_tick_get(void)
     uint64_t now_ms;
     now_ms = (tv_now.tv_sec * 1000000 + tv_now.tv_usec) / 1000;
 
-    uint32_t time_ms = now_ms - start_ms;
-    return time_ms;
+    return (uint32_t)(now_ms - start_ms);
 }
