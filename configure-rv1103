@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# ==============================================================================
+# Wrapper Configure Script for RV1103 (Luckfox Pico)
+# 
+# 这个脚本用于快速配置 RV1103 交叉编译环境，自动调用底层的 ./configure。
+# 只要系统的 PATH 环境变量中包含该工具链，就不需要使用绝对路径。
+# ==============================================================================
+
+# 定义 Luckfox Pico (RV1103) 的交叉编译器前缀
+TOOLCHAIN_PREFIX="arm-rockchip830-linux-uclibcgnueabihf-"
+
+# 检查基础的 configure 脚本是否存在
+if [ ! -x "./configure" ]; then
+    echo "Error: ./configure script not found or not executable!"
+    echo "Please run 'chmod +x configure' first or make sure you are in the correct directory."
+    exit 1
+fi
+
+echo "=========================================================="
+echo " Starting configuration for RV1103 (Luckfox Pico)..."
+echo "=========================================================="
+
+# 调用基础 configure 脚本，传入交叉编译器前缀，同时支持透传其他参数（如 --prefix）
+./configure --cross-compile="${TOOLCHAIN_PREFIX}" "$@"
+
+# 检查上一条命令（./configure）是否执行成功
+if [ $? -eq 0 ]; then
+    echo "=========================================================="
+    echo " RV1103 Configuration successful! You can now run 'make'."
+    echo "=========================================================="
+else
+    echo "=========================================================="
+    echo " Configuration failed! Please check the errors above."
+    echo " Make sure the toolchain is exported to your PATH."
+    echo " (e.g., export PATH=\$PATH:~/luckfox-pico/tools/linux/toolchain/.../bin)"
+    echo "=========================================================="
+    exit 1
+fi

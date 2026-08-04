@@ -28,7 +28,8 @@ bindir 			?= $(prefix)/bin
 # [FIXED] Collect the files to compile
 # Added nes_font_16.c so the linker can find the font array.
 # ------------------------------------------------------------------
-MAINSRC = src/main.c src/nes_font_16.c
+# MAINSRC = src/main.c src/nes_font_16.c
+MAINSRC = $(shell find src -name "*.c")
 
 # --- NEW: List of config files in src/ that need to be symlinked to the root ---
 # This is required for libraries that use hardcoded relative paths like ../lv_drv_conf.h
