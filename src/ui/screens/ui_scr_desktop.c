@@ -1,6 +1,7 @@
 #include "ui/ui.h"
 #include "ui/screens/ui_scr_desktop.h"
 #include "ui/components/ui_comp_common.h"
+#include "ui/components/ui_status_bar.h"
 #include "utils/prefs.h"
 #include "utils/time_utils.h"
 #include <unistd.h>
@@ -101,6 +102,7 @@ static void create_main_menu(lv_obj_t * parent, lv_group_t * g)
 void ui_create_desktop(void)
 {
     lv_obj_t * screen = lv_scr_act();
+    ui_status_bar_init(screen);
     ui_time_label = lv_label_create(screen);
     lv_obj_set_style_text_font(ui_time_label, &nes_font_16, 0);
     lv_obj_align(ui_time_label, LV_ALIGN_TOP_RIGHT, -8, 8);
