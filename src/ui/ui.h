@@ -13,6 +13,7 @@ void ui_open_about_screen(void);
 void ui_open_settings_screen(void);
 void ui_open_console_screen(void);
 void ui_open_game_screen(void);
+void ui_open_joystick_screen(void);
 void ui_open_nes_browser(void);
 void ui_open_stella_browser(void);
 

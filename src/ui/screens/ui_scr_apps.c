@@ -266,6 +266,22 @@ void ui_open_game_screen(void)
     system("/oem/lv_execute/term_start_all.sh < /dev/null &");
 }
 
+void ui_open_joystick_screen(void)
+{
+    lv_obj_add_flag(ui_menu_list, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(ui_time_label, LV_OBJ_FLAG_HIDDEN);
+
+    lv_obj_t * joystick_screen = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(joystick_screen);
+    lv_obj_set_size(joystick_screen, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_style_bg_color(joystick_screen, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(joystick_screen, LV_OPA_COVER, 0);
+
+    lv_timer_handler();
+    usleep(16000);
+    system("/oem/lv_execute/joystick_start_all.sh < /dev/null &");
+}
+
 void ui_open_nes_browser(void)
 {
     create_nes_browser_screen(lv_scr_act());
