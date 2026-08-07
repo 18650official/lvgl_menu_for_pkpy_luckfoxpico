@@ -55,7 +55,7 @@ static void main_menu_event_handler(lv_event_t * e)
             if (btns_obj) {
                 lv_group_focus_obj(btns_obj);
             }
-        } else if (strcmp(text, "Console") == 0) {
+        } else if (strcmp(text, "Terminal") == 0) {
             ui_open_console_screen();
         } else if (strcmp(text, "Settings") == 0) {
             lv_obj_add_flag(ui_menu_list, LV_OBJ_FLAG_HIDDEN);
@@ -70,6 +70,9 @@ static void main_menu_event_handler(lv_event_t * e)
         } else if (strcmp(text, "Stella") == 0) {
             lv_obj_add_flag(ui_menu_list, LV_OBJ_FLAG_HIDDEN);
             ui_open_stella_browser();
+        } else if (strcmp(text, "Music") == 0) {
+            lv_obj_add_flag(ui_menu_list, LV_OBJ_FLAG_HIDDEN);
+            ui_open_music_browser();
         }
     }
 }
@@ -93,7 +96,7 @@ static void create_main_menu(lv_obj_t * parent, lv_group_t * g)
     lv_obj_set_size(ui_menu_list, 280, 200);
     lv_obj_align(ui_menu_list, LV_ALIGN_BOTTOM_MID, 0, -5);
 
-    const char * menu_items[] = {"Meow RPG", "NES Emulator", "Stella", "Console", "Joystick Mode", "Settings", "About", "Reboot"};
+    const char * menu_items[] = {"Meow RPG", "NES Emulator", "Stella", "Terminal", "Joystick Mode", "Music", "Settings", "About", "Reboot"};
     for (int i = 0; i < (int)(sizeof(menu_items) / sizeof(menu_items[0])); i++) {
         lv_obj_t * btn = ui_comp_create_styled_list_btn(ui_menu_list, menu_items[i]);
         lv_obj_add_event_cb(btn, main_menu_event_handler, LV_EVENT_CLICKED, NULL);

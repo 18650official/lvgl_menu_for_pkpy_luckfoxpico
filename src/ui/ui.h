@@ -16,5 +16,6 @@ void ui_open_game_screen(void);
 void ui_open_joystick_screen(void);
 void ui_open_nes_browser(void);
 void ui_open_stella_browser(void);
+void ui_open_music_browser(void);
 
 #endif // UI_UI_H
