@@ -72,7 +72,7 @@ static void main_menu_event_handler(lv_event_t * e)
             ui_open_stella_browser();
         } else if (strcmp(text, "Music") == 0) {
             lv_obj_add_flag(ui_menu_list, LV_OBJ_FLAG_HIDDEN);
-            ui_open_music_browser();
+            ui_open_music_screen();
         }
     }
 }

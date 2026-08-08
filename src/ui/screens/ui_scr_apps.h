@@ -6,5 +6,6 @@ void ui_open_console_screen(void);
 void ui_open_game_screen(void);
 void ui_open_nes_browser(void);
 void ui_open_stella_browser(void);
+void ui_open_music_screen(void);
 
 #endif // UI_SCR_APPS_H

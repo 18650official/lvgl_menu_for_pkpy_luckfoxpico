@@ -16,7 +16,7 @@ WARNINGS := -Wall -Wextra -Wno-unused-parameter -Wmissing-prototypes
 
 # Add src/ to the include path for files that use #include "lv_conf.h"
 CFLAGS 			?= -O3 -g0 -I$(LVGL_DIR)/ -I$(LVGL_DIR)/src $(WARNINGS) -std=c99
-LDFLAGS 		?= -lm -lpthread -lasound -lmpg123
+LDFLAGS 		?= -lm -lpthread
 BIN 			= pico-menu
 BUILD_DIR 		= ./build
 BUILD_OBJ_DIR 	= $(BUILD_DIR)/obj
