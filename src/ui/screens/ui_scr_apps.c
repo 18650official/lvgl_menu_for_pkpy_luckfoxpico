@@ -1,4 +1,11 @@
 #define _DEFAULT_SOURCE
+#define _GNU_SOURCE
+
+/* 先包含 ALSA，避免标准库把 timeval 提前定义导致冲突 */
+#include <alsa/asoundlib.h>
+#include <mpg123.h>
+#include <pthread.h>
+
 #include "ui/ui.h"
 #include "ui/components/ui_comp_common.h"
 #include "ui/components/ui_status_bar.h"
@@ -19,7 +26,18 @@ static lv_obj_t * music_browser_screen = NULL;
 static lv_obj_t * music_player_screen = NULL;
 static lv_obj_t * music_progress_bar = NULL;
 static lv_timer_t * music_fake_timer = NULL;
-static bool is_music_paused = false;
+// static bool is_music_paused = false;
+
+static pthread_t audio_thread;
+static volatile bool audio_thread_exit = false;
+static volatile bool audio_is_paused = false;
+static volatile int audio_seek_request = -1; // 0-100 进度百分比，-1 表示无请求
+static double audio_current_time = 0.0;
+static double audio_total_time = 0.0;
+static char current_audio_path[256];
+
+// ALSA 播放句柄
+static snd_pcm_t *pcm_handle = NULL;
 
 static void modal_close_event_cb(lv_event_t * e)
 {
@@ -300,29 +318,157 @@ void ui_open_stella_browser(void)
     create_stella_browser_screen(lv_scr_act());
 }
 
-// Music player logic
+// 初始化 ALSA 声卡 (注意这里使用了你的 plughw:1,0)
+static int alsa_init(uint32_t rate, uint32_t channels) {
+    int err;
+    if ((err = snd_pcm_open(&pcm_handle, "plughw:1,0", SND_PCM_STREAM_PLAYBACK, 0)) < 0) {
+        printf("Cannot open ALSA device: %s\n", snd_strerror(err));
+        return -1;
+    }
+    snd_pcm_set_params(pcm_handle, SND_PCM_FORMAT_S16_LE, SND_PCM_ACCESS_RW_INTERLEAVED, channels, rate, 1, 100000);
+    return 0;
+}
+
+static void alsa_close() {
+    if (pcm_handle) {
+        snd_pcm_drop(pcm_handle);
+        snd_pcm_close(pcm_handle);
+        pcm_handle = NULL;
+    }
+}
+
+// 独立的音频播放线程
+static void * audio_playback_thread(void * arg) {
+    bool is_mp3 = strstr(current_audio_path, ".mp3") != NULL;
+    bool is_wav = strstr(current_audio_path, ".wav") != NULL;
+    
+    // ================= MP3 初始化 =================
+    mpg123_handle *m = NULL;
+    if (is_mp3) {
+        mpg123_init();
+        m = mpg123_new(NULL, NULL);
+        if (mpg123_open(m, current_audio_path) == MPG123_OK) {
+            long rate; int channels, encoding;
+            mpg123_getformat(m, &rate, &channels, &encoding);
+            alsa_init(rate, channels);
+            
+            off_t total_samples = mpg123_length(m);
+            audio_total_time = (double)total_samples / rate;
+        } else {
+            goto thread_exit;
+        }
+    } 
+    // ================= WAV 初始化 =================
+    else if (is_wav) {
+        FILE *f = fopen(current_audio_path, "rb");
+        if (!f) goto thread_exit;
+        
+        // 简易 WAV 头解析 (跳过寻找 fmt 和 data 块)
+        uint32_t sample_rate = 44100;
+        uint16_t channels = 2;
+        uint32_t data_size = 0;
+        
+        fseek(f, 22, SEEK_SET); fread(&channels, 2, 1, f);
+        fseek(f, 24, SEEK_SET); fread(&sample_rate, 4, 1, f);
+        
+        // 寻找 data 块获取大小
+        fseek(f, 12, SEEK_SET);
+        char chunk[4]; uint32_t chunk_size;
+        while (fread(chunk, 1, 4, f) == 4 && fread(&chunk_size, 4, 1, f) == 1) {
+            if (strncmp(chunk, "data", 4) == 0) { data_size = chunk_size; break; }
+            fseek(f, chunk_size, SEEK_CUR);
+        }
+        
+        alsa_init(sample_rate, channels);
+        audio_total_time = (double)data_size / (sample_rate * channels * 2);
+        
+        // 播放循环
+        unsigned char buffer[4096];
+        size_t bytes_read;
+        long total_bytes_played = 0;
+        
+        while (!audio_thread_exit && (bytes_read = fread(buffer, 1, sizeof(buffer), f)) > 0) {
+            while (audio_is_paused && !audio_thread_exit) usleep(50000); // 暂停逻辑
+            
+            // 处理 UI 传来的快进快退请求
+            if (audio_seek_request >= 0) {
+                long target_offset = (data_size * audio_seek_request) / 100;
+                target_offset -= (target_offset % (channels * 2)); // 对齐
+                fseek(f, ftell(f) - total_bytes_played + target_offset, SEEK_SET);
+                total_bytes_played = target_offset;
+                audio_seek_request = -1; // 清除请求
+            }
+            
+            int frames = bytes_read / (channels * 2);
+            snd_pcm_writei(pcm_handle, buffer, frames);
+            total_bytes_played += bytes_read;
+            audio_current_time = (double)total_bytes_played / (sample_rate * channels * 2);
+        }
+        fclose(f);
+        goto thread_exit;
+    }
+    
+    // MP3 播放循环
+    if (is_mp3) {
+        size_t done;
+        unsigned char buffer[4096];
+        long rate; int channels, encoding;
+        mpg123_getformat(m, &rate, &channels, &encoding);
+        
+        while (!audio_thread_exit) {
+            while (audio_is_paused && !audio_thread_exit) usleep(50000);
+            
+            // 处理 UI 传来的快进快退请求
+            if (audio_seek_request >= 0) {
+                off_t target_sample = (mpg123_length(m) * audio_seek_request) / 100;
+                mpg123_seek(m, target_sample, SEEK_SET);
+                audio_seek_request = -1; // 清除请求
+            }
+            
+            int err = mpg123_read(m, buffer, sizeof(buffer), &done);
+            if (err == MPG123_DONE) break; // 播放结束
+            if (err != MPG123_OK) continue;
+            
+            int frames = done / (channels * 2);
+            // 写入 ALSA，如果发生 underflow 则恢复
+            if (snd_pcm_writei(pcm_handle, buffer, frames) == -EPIPE) {
+                snd_pcm_prepare(pcm_handle);
+            }
+            audio_current_time = (double)mpg123_tell(m) / rate;
+        }
+        mpg123_close(m);
+        mpg123_delete(m);
+        mpg123_exit();
+    }
+
+thread_exit:
+    alsa_close();
+    return NULL;
+}
+
+// ==========================================
+// LVGL UI Logic (Music Player)
+// ==========================================
 static void music_pause_resume_cb(lv_event_t * e)
 {
     lv_obj_t * btn = lv_event_get_target(e);
     lv_obj_t * label = lv_obj_get_child(btn, 0);
 
-    if (!is_music_paused) {
-        // 暂停进程
-        system("killall -STOP mpg123 aplay 2>/dev/null");
+    if (!audio_is_paused) {
+        audio_is_paused = true;
         lv_label_set_text(label, "Play");
-        is_music_paused = true;
     } else {
-        // 恢复进程
-        system("killall -CONT mpg123 aplay 2>/dev/null");
+        audio_is_paused = false;
         lv_label_set_text(label, "Pause");
-        is_music_paused = false;
     }
 }
 
 static void music_close_cb(lv_event_t * e)
 {
-    // 彻底杀掉播放进程
-    system("killall -9 mpg123 aplay 2>/dev/null"); 
+    // 优雅退出后台音频线程
+    audio_thread_exit = true;
+    audio_is_paused = false; // 防止线程卡在暂停循环里
+    pthread_join(audio_thread, NULL); 
     
     if (music_fake_timer) {
         lv_timer_del(music_fake_timer);
@@ -332,21 +478,30 @@ static void music_close_cb(lv_event_t * e)
         lv_obj_del(music_player_screen);
         music_player_screen = NULL;
     }
-    // 恢复显示音乐列表
     if (music_browser_screen) {
         lv_obj_clear_flag(music_browser_screen, LV_OBJ_FLAG_HIDDEN);
-        lv_group_focus_obj(lv_obj_get_child(music_browser_screen, 0)); // 聚焦返回按钮
+        lv_group_focus_obj(lv_obj_get_child(music_browser_screen, 0)); 
     }
 }
 
-// 因为不借助外部库很难获取准确的音频总时长，这里做一个循环跑动的假进度条，表示正在播放
+// 真实进度条 UI 定时器
 static void music_progress_timer_cb(lv_timer_t * t)
 {
-    if (is_music_paused || !music_progress_bar) return;
-    int32_t val = lv_bar_get_value(music_progress_bar);
-    val += 2; 
-    if (val > 100) val = 0;
-    lv_bar_set_value(music_progress_bar, val, LV_ANIM_ON);
+    if (audio_total_time <= 0 || !music_progress_bar) return;
+    
+    // 如果用户正在拖动/操作滑动条，先不要自动更新它，以免产生 UI 冲突
+    if (lv_obj_has_state(music_progress_bar, LV_STATE_FOCUSED) && lv_indev_get_act()) return;
+
+    int percent = (int)((audio_current_time / audio_total_time) * 100.0);
+    if (percent > 100) percent = 100;
+    lv_slider_set_value(music_progress_bar, percent, LV_ANIM_ON);
+}
+
+// 用户滑动进度条触发的回调
+static void music_slider_changed_cb(lv_event_t * e)
+{
+    lv_obj_t * slider = lv_event_get_target(e);
+    audio_seek_request = lv_slider_get_value(slider);
 }
 
 static void music_play_event_handler(lv_event_t * e)
@@ -354,49 +509,41 @@ static void music_play_event_handler(lv_event_t * e)
     const char * filename = lv_event_get_user_data(e);
     if (!filename) return;
 
-    // 播放前先清理残留进程
-    system("killall -9 mpg123 aplay 2>/dev/null");
+    snprintf(current_audio_path, sizeof(current_audio_path), "/oem/usr/share/audio/%s", filename);
 
-    char command[512];
-    if (strstr(filename, ".mp3")) {
-        snprintf(command, sizeof(command), 
-                 "/usr/bin/mpg123 -q -o alsa -a plughw:1,0 \"/oem/usr/share/audio/%s\" < /dev/null > /dev/null 2>&1 &", 
-                 filename);
-    } else if (strstr(filename, ".wav")) {
-        snprintf(command, sizeof(command), 
-                 "/usr/bin/aplay -q -D plughw:1,0 \"/oem/usr/share/audio/%s\" < /dev/null > /dev/null 2>&1 &", 
-                 filename);
-    } else {
-        return;
-    }
+    // 初始化线程控制变量
+    audio_thread_exit = false;
+    audio_is_paused = false;
+    audio_seek_request = -1;
+    audio_current_time = 0;
+    audio_total_time = 0;
 
-    system(command);
-    is_music_paused = false;
+    // 启动后台播放线程
+    pthread_create(&audio_thread, NULL, audio_playback_thread, NULL);
 
-    // 隐藏列表，准备显示播放器 UI
     if (music_browser_screen) lv_obj_add_flag(music_browser_screen, LV_OBJ_FLAG_HIDDEN);
 
     music_player_screen = lv_obj_create(lv_scr_act());
-    lv_obj_set_size(music_player_screen, 240, 160); // 简约的居中小窗
+    lv_obj_set_size(music_player_screen, 240, 160);
     lv_obj_center(music_player_screen);
     lv_obj_set_style_border_width(music_player_screen, 2, 0);
 
-    // 滚动显示的文件名
     lv_obj_t * title = lv_label_create(music_player_screen);
     lv_label_set_text(title, filename);
-    lv_obj_set_style_text_font(title, &nes_font_16, 0); // 使用你的中文字体
+    lv_obj_set_style_text_font(title, &nes_font_16, 0); 
     lv_obj_set_width(title, 200);
     lv_label_set_long_mode(title, LV_LABEL_LONG_SCROLL_CIRCULAR);
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 10);
 
-    // 假进度条（仅起视觉动效作用）
-    music_progress_bar = lv_bar_create(music_player_screen);
+    // ==================== 进度条升级为 Slider ====================
+    music_progress_bar = lv_slider_create(music_player_screen);
     lv_obj_set_size(music_progress_bar, 200, 10);
     lv_obj_align(music_progress_bar, LV_ALIGN_CENTER, 0, -10);
-    lv_bar_set_range(music_progress_bar, 0, 100);
-    lv_bar_set_value(music_progress_bar, 0, LV_ANIM_OFF);
+    lv_slider_set_range(music_progress_bar, 0, 100);
+    lv_slider_set_value(music_progress_bar, 0, LV_ANIM_OFF);
+    // 监听拖动或按键改变值的事件，从而实现快进快退
+    lv_obj_add_event_cb(music_progress_bar, music_slider_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
 
-    // 暂停按钮
     lv_obj_t * btn_pause = lv_btn_create(music_player_screen);
     lv_obj_set_size(btn_pause, 80, 30);
     lv_obj_align(btn_pause, LV_ALIGN_BOTTOM_LEFT, 15, -10);
@@ -405,7 +552,6 @@ static void music_play_event_handler(lv_event_t * e)
     lv_label_set_text(lbl_pause, "Pause");
     lv_obj_center(lbl_pause);
 
-    // 关闭按钮
     lv_obj_t * btn_close = lv_btn_create(music_player_screen);
     lv_obj_set_size(btn_close, 80, 30);
     lv_obj_align(btn_close, LV_ALIGN_BOTTOM_RIGHT, -15, -10);
@@ -414,12 +560,14 @@ static void music_play_event_handler(lv_event_t * e)
     lv_label_set_text(lbl_close, "Close");
     lv_obj_center(lbl_close);
 
-    // 设置焦点，支持手柄控制
+    // 将 Slider 也加入按键组！这样你的手柄方向键(上下/左右)就能聚焦并拖动进度条了
     lv_group_t * g = lv_group_get_default();
+    lv_group_add_obj(g, music_progress_bar); 
     lv_group_add_obj(g, btn_pause);
     lv_group_add_obj(g, btn_close);
     lv_group_focus_obj(btn_pause);
 
+    // 定时器现在更新真实的进度
     music_fake_timer = lv_timer_create(music_progress_timer_cb, 500, NULL);
 }
 

@@ -1,36 +1,7 @@
 [
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
-      "-O3",
-      "-g0",
-      "-I./",
-      "-I./src",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wmissing-prototypes",
-      "-std=c99",
-      "-I./lvgl/src/core",
-      "-I./lvgl/src/draw",
-      "-I./lvgl/src/font",
-      "-I./lvgl/src/gpu",
-      "-I./lvgl/src/gpu/sdl",
-      "-I./lvgl/src/hal",
-      "-I./lvgl/src/misc",
-      "-I./lvgl/src/widgets",
-      "-c",
-      "-o",
-      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_2.o",
-      "lvgl/examples/layouts/flex/lv_example_flex_2.c"
-    ],
-    "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_2.c",
-    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_2.o"
-  },
-  {
-    "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -59,7 +30,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -79,132 +50,16 @@
       "-I./lvgl/src/widgets",
       "-c",
       "-o",
-      "build/obj/./lvgl/examples/layouts/grid/lv_example_grid_1.o",
-      "lvgl/examples/layouts/grid/lv_example_grid_1.c"
+      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_2.o",
+      "lvgl/examples/layouts/flex/lv_example_flex_2.c"
     ],
     "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/lvgl/examples/layouts/grid/lv_example_grid_1.c",
-    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/grid/lv_example_grid_1.o"
+    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_2.c",
+    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_2.o"
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
-      "-O3",
-      "-g0",
-      "-I./",
-      "-I./src",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wmissing-prototypes",
-      "-std=c99",
-      "-I./lvgl/src/core",
-      "-I./lvgl/src/draw",
-      "-I./lvgl/src/font",
-      "-I./lvgl/src/gpu",
-      "-I./lvgl/src/gpu/sdl",
-      "-I./lvgl/src/hal",
-      "-I./lvgl/src/misc",
-      "-I./lvgl/src/widgets",
-      "-c",
-      "-o",
-      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_3.o",
-      "lvgl/examples/layouts/flex/lv_example_flex_3.c"
-    ],
-    "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_3.c",
-    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_3.o"
-  },
-  {
-    "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
-      "-O3",
-      "-g0",
-      "-I./",
-      "-I./src",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wmissing-prototypes",
-      "-std=c99",
-      "-I./lvgl/src/core",
-      "-I./lvgl/src/draw",
-      "-I./lvgl/src/font",
-      "-I./lvgl/src/gpu",
-      "-I./lvgl/src/gpu/sdl",
-      "-I./lvgl/src/hal",
-      "-I./lvgl/src/misc",
-      "-I./lvgl/src/widgets",
-      "-c",
-      "-o",
-      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_4.o",
-      "lvgl/examples/layouts/flex/lv_example_flex_4.c"
-    ],
-    "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_4.c",
-    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_4.o"
-  },
-  {
-    "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
-      "-O3",
-      "-g0",
-      "-I./",
-      "-I./src",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wmissing-prototypes",
-      "-std=c99",
-      "-I./lvgl/src/core",
-      "-I./lvgl/src/draw",
-      "-I./lvgl/src/font",
-      "-I./lvgl/src/gpu",
-      "-I./lvgl/src/gpu/sdl",
-      "-I./lvgl/src/hal",
-      "-I./lvgl/src/misc",
-      "-I./lvgl/src/widgets",
-      "-c",
-      "-o",
-      "build/obj/./lvgl/examples/layouts/grid/lv_example_grid_6.o",
-      "lvgl/examples/layouts/grid/lv_example_grid_6.c"
-    ],
-    "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/lvgl/examples/layouts/grid/lv_example_grid_6.c",
-    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/grid/lv_example_grid_6.o"
-  },
-  {
-    "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
-      "-O3",
-      "-g0",
-      "-I./",
-      "-I./src",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wmissing-prototypes",
-      "-std=c99",
-      "-I./lvgl/src/core",
-      "-I./lvgl/src/draw",
-      "-I./lvgl/src/font",
-      "-I./lvgl/src/gpu",
-      "-I./lvgl/src/gpu/sdl",
-      "-I./lvgl/src/hal",
-      "-I./lvgl/src/misc",
-      "-I./lvgl/src/widgets",
-      "-c",
-      "-o",
-      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_1.o",
-      "lvgl/examples/layouts/flex/lv_example_flex_1.c"
-    ],
-    "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_1.c",
-    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_1.o"
-  },
-  {
-    "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -233,7 +88,152 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_3.o",
+      "lvgl/examples/layouts/flex/lv_example_flex_3.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_3.c",
+    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_3.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_4.o",
+      "lvgl/examples/layouts/flex/lv_example_flex_4.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_4.c",
+    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_4.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/./lvgl/examples/layouts/flex/lv_example_flex_1.o",
+      "lvgl/examples/layouts/flex/lv_example_flex_1.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/lvgl/examples/layouts/flex/lv_example_flex_1.c",
+    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/flex/lv_example_flex_1.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/./lvgl/examples/layouts/grid/lv_example_grid_1.o",
+      "lvgl/examples/layouts/grid/lv_example_grid_1.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/lvgl/examples/layouts/grid/lv_example_grid_1.c",
+    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/grid/lv_example_grid_1.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/./lvgl/examples/layouts/grid/lv_example_grid_6.o",
+      "lvgl/examples/layouts/grid/lv_example_grid_6.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/lvgl/examples/layouts/grid/lv_example_grid_6.c",
+    "output": "/home/miku/lvgl/build/obj/lvgl/examples/layouts/grid/lv_example_grid_6.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -262,7 +262,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -291,7 +291,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -320,7 +320,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -349,7 +349,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -378,7 +378,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -407,7 +407,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -436,7 +436,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -465,7 +465,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -494,7 +494,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -523,7 +523,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -552,7 +552,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -581,7 +581,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -610,7 +610,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -639,7 +639,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -668,7 +668,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -697,7 +697,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -726,7 +726,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -755,7 +755,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -784,7 +784,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -813,7 +813,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -842,7 +842,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -871,7 +871,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -900,7 +900,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -929,7 +929,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -958,7 +958,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -987,7 +987,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1016,7 +1016,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1045,7 +1045,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1074,7 +1074,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1103,7 +1103,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1132,7 +1132,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1161,7 +1161,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1190,7 +1190,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1219,7 +1219,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1248,7 +1248,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1277,7 +1277,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1306,7 +1306,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1335,7 +1335,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1364,7 +1364,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1393,7 +1393,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1422,7 +1422,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1451,7 +1451,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1480,7 +1480,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1509,7 +1509,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1538,7 +1538,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1567,7 +1567,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1596,7 +1596,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1625,7 +1625,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1654,7 +1654,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1683,7 +1683,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1712,7 +1712,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1741,7 +1741,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1770,7 +1770,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1799,7 +1799,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1828,7 +1828,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1857,7 +1857,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1886,7 +1886,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1915,7 +1915,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1944,7 +1944,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -1973,7 +1973,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2002,7 +2002,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2031,7 +2031,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2060,7 +2060,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2089,7 +2089,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2118,7 +2118,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2147,7 +2147,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2176,7 +2176,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2205,7 +2205,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2234,7 +2234,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2263,7 +2263,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2292,7 +2292,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2321,7 +2321,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2350,7 +2350,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2379,7 +2379,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2408,7 +2408,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2437,7 +2437,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2466,7 +2466,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2495,7 +2495,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2524,7 +2524,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2553,7 +2553,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2582,7 +2582,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2611,7 +2611,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2640,7 +2640,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2669,7 +2669,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2698,7 +2698,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2727,7 +2727,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2756,7 +2756,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2785,7 +2785,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2814,7 +2814,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2843,7 +2843,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2872,7 +2872,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2901,7 +2901,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2930,7 +2930,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2959,7 +2959,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -2988,7 +2988,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3017,7 +3017,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3046,7 +3046,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3075,7 +3075,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3104,7 +3104,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3133,7 +3133,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3162,7 +3162,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3191,7 +3191,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3220,7 +3220,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3249,7 +3249,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3278,7 +3278,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3307,7 +3307,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3336,7 +3336,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3365,7 +3365,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3394,7 +3394,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3423,7 +3423,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3452,7 +3452,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3481,7 +3481,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3510,7 +3510,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3539,7 +3539,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3568,7 +3568,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3597,7 +3597,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3626,7 +3626,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3655,7 +3655,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3684,7 +3684,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3713,7 +3713,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3742,7 +3742,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3771,7 +3771,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3800,7 +3800,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3829,7 +3829,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3858,7 +3858,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3887,7 +3887,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3916,7 +3916,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3945,7 +3945,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -3974,7 +3974,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4003,7 +4003,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4032,7 +4032,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4061,7 +4061,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4090,7 +4090,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4119,7 +4119,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4148,7 +4148,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4177,7 +4177,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4206,7 +4206,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4235,7 +4235,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4264,7 +4264,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4293,7 +4293,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4322,7 +4322,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4351,7 +4351,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4380,7 +4380,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4409,7 +4409,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4438,7 +4438,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4467,7 +4467,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4496,7 +4496,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4525,7 +4525,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4554,7 +4554,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4583,7 +4583,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4612,7 +4612,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4641,7 +4641,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4670,7 +4670,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4699,7 +4699,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4728,7 +4728,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4757,7 +4757,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4786,7 +4786,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4815,7 +4815,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4844,7 +4844,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4873,7 +4873,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4902,7 +4902,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4931,7 +4931,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4960,7 +4960,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -4989,7 +4989,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5018,7 +5018,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5047,7 +5047,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5076,7 +5076,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5105,7 +5105,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5134,7 +5134,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5163,7 +5163,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5192,7 +5192,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5221,7 +5221,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5250,7 +5250,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5279,7 +5279,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5308,7 +5308,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5337,7 +5337,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5366,7 +5366,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5395,7 +5395,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5424,7 +5424,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5453,7 +5453,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5482,7 +5482,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5511,7 +5511,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5540,7 +5540,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5569,7 +5569,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5598,7 +5598,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5627,7 +5627,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5656,7 +5656,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5685,7 +5685,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5714,7 +5714,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5743,7 +5743,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5772,7 +5772,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5801,7 +5801,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5830,7 +5830,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5859,7 +5859,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5888,7 +5888,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5917,7 +5917,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5946,7 +5946,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -5975,7 +5975,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6004,7 +6004,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6033,7 +6033,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6062,7 +6062,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6091,7 +6091,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6120,7 +6120,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6149,7 +6149,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6178,7 +6178,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6207,7 +6207,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6236,7 +6236,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6265,7 +6265,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6294,7 +6294,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6323,7 +6323,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6352,7 +6352,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6381,7 +6381,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6410,7 +6410,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6439,7 +6439,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6468,7 +6468,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6497,7 +6497,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6526,7 +6526,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6555,7 +6555,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6584,7 +6584,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6613,7 +6613,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6642,7 +6642,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6671,7 +6671,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6700,7 +6700,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6729,7 +6729,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6758,7 +6758,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6787,7 +6787,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6816,7 +6816,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6845,7 +6845,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6874,7 +6874,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6903,7 +6903,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6932,7 +6932,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6961,7 +6961,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -6990,7 +6990,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7019,7 +7019,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7048,7 +7048,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7077,7 +7077,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7106,7 +7106,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7135,7 +7135,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7164,7 +7164,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7193,7 +7193,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7222,7 +7222,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7251,7 +7251,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7280,7 +7280,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7309,7 +7309,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7338,7 +7338,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7367,7 +7367,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7396,7 +7396,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7425,7 +7425,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7454,7 +7454,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7483,7 +7483,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7512,7 +7512,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7541,7 +7541,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7570,7 +7570,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7599,7 +7599,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7628,7 +7628,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7657,7 +7657,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7686,7 +7686,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7715,7 +7715,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7744,7 +7744,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7773,7 +7773,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7802,7 +7802,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7831,7 +7831,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7860,7 +7860,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7889,7 +7889,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7918,7 +7918,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7947,7 +7947,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -7976,7 +7976,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8005,7 +8005,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8034,7 +8034,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8063,7 +8063,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8092,7 +8092,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8121,7 +8121,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8150,7 +8150,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8179,7 +8179,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8208,7 +8208,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8237,7 +8237,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8266,7 +8266,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8295,7 +8295,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8324,7 +8324,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8353,7 +8353,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8382,7 +8382,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8411,7 +8411,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8440,7 +8440,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8469,7 +8469,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8498,7 +8498,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8527,7 +8527,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8556,7 +8556,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8585,7 +8585,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8614,7 +8614,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8643,7 +8643,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8672,7 +8672,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8701,7 +8701,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8730,7 +8730,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8759,7 +8759,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8788,7 +8788,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8817,7 +8817,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8846,7 +8846,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8875,7 +8875,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8904,7 +8904,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8933,7 +8933,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8962,7 +8962,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -8991,7 +8991,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -9020,7 +9020,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -9049,7 +9049,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -9078,36 +9078,7 @@
   },
   {
     "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
-      "-O3",
-      "-g0",
-      "-I./",
-      "-I./src",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wmissing-prototypes",
-      "-std=c99",
-      "-I./lvgl/src/core",
-      "-I./lvgl/src/draw",
-      "-I./lvgl/src/font",
-      "-I./lvgl/src/gpu",
-      "-I./lvgl/src/gpu/sdl",
-      "-I./lvgl/src/hal",
-      "-I./lvgl/src/misc",
-      "-I./lvgl/src/widgets",
-      "-c",
-      "-o",
-      "build/obj/src/main.o",
-      "src/main.c"
-    ],
-    "directory": "/home/miku/lvgl",
-    "file": "/home/miku/lvgl/src/main.c",
-    "output": "/home/miku/lvgl/build/obj/src/main.o"
-  },
-  {
-    "arguments": [
-      "/home/miku/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
       "-O3",
       "-g0",
       "-I./",
@@ -9133,5 +9104,295 @@
     "directory": "/home/miku/lvgl",
     "file": "/home/miku/lvgl/src/nes_font_16.c",
     "output": "/home/miku/lvgl/build/obj/src/nes_font_16.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/ui/screens/ui_scr_desktop.o",
+      "src/ui/screens/ui_scr_desktop.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/ui/screens/ui_scr_desktop.c",
+    "output": "/home/miku/lvgl/build/obj/src/ui/screens/ui_scr_desktop.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/ui/screens/ui_scr_settings.o",
+      "src/ui/screens/ui_scr_settings.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/ui/screens/ui_scr_settings.c",
+    "output": "/home/miku/lvgl/build/obj/src/ui/screens/ui_scr_settings.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/ui/screens/ui_scr_apps.o",
+      "src/ui/screens/ui_scr_apps.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/ui/screens/ui_scr_apps.c",
+    "output": "/home/miku/lvgl/build/obj/src/ui/screens/ui_scr_apps.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/ui/components/ui_comp_common.o",
+      "src/ui/components/ui_comp_common.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/ui/components/ui_comp_common.c",
+    "output": "/home/miku/lvgl/build/obj/src/ui/components/ui_comp_common.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/ui/components/ui_status_bar.o",
+      "src/ui/components/ui_status_bar.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/ui/components/ui_status_bar.c",
+    "output": "/home/miku/lvgl/build/obj/src/ui/components/ui_status_bar.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/ui/ui_init.o",
+      "src/ui/ui_init.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/ui/ui_init.c",
+    "output": "/home/miku/lvgl/build/obj/src/ui/ui_init.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/utils/file_utils.o",
+      "src/utils/file_utils.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/utils/file_utils.c",
+    "output": "/home/miku/lvgl/build/obj/src/utils/file_utils.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/utils/prefs.o",
+      "src/utils/prefs.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/utils/prefs.c",
+    "output": "/home/miku/lvgl/build/obj/src/utils/prefs.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/utils/time_utils.o",
+      "src/utils/time_utils.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/utils/time_utils.c",
+    "output": "/home/miku/lvgl/build/obj/src/utils/time_utils.o"
+  },
+  {
+    "arguments": [
+      "/home/miku/luckfox-pico/sysdrv/source/buildroot/buildroot-2023.02.6/output/host/bin/arm-rockchip830-linux-uclibcgnueabihf-gcc",
+      "-O3",
+      "-g0",
+      "-I./",
+      "-I./src",
+      "-Wall",
+      "-Wextra",
+      "-Wno-unused-parameter",
+      "-Wmissing-prototypes",
+      "-std=c99",
+      "-I./lvgl/src/core",
+      "-I./lvgl/src/draw",
+      "-I./lvgl/src/font",
+      "-I./lvgl/src/gpu",
+      "-I./lvgl/src/gpu/sdl",
+      "-I./lvgl/src/hal",
+      "-I./lvgl/src/misc",
+      "-I./lvgl/src/widgets",
+      "-c",
+      "-o",
+      "build/obj/src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/miku/lvgl",
+    "file": "/home/miku/lvgl/src/main.c",
+    "output": "/home/miku/lvgl/build/obj/src/main.o"
   }
 ]
